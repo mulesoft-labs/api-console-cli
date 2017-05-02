@@ -4,7 +4,7 @@ process.title = 'api-console build';
 
 const program = require('commander');
 const colors = require('colors/safe');
-const builder = require('../lib/build');
+const {ApiBuild} = require('../lib/build');
 
 var desc = 'Use this command to build the API Console as a standalone application that can be ';
 desc += 'used as a web page hosted on any server.';
@@ -13,6 +13,8 @@ program
   .arguments('<raml>')
   .description(desc)
   .option('-o, --output', 'Output dir. Default to "./build/".')
+  .option('--console-source',
+    'An URL to a zip file with the API console source. Defaul to current release')
   .option('--verbose', 'Print verbose messages.')
   .action(function(raml, options) {
     console.log();
@@ -22,8 +24,10 @@ program
       return;
     }
     try {
-      const script = new builder.ApiBuild(raml, options);
-      script.run();
+      const script = new ApiBuild(raml, options);
+      script.run().catch((cause) => {
+        throw new Error(cause.message);
+      });
     } catch (e) {
       console.log(colors.red('  ' + e.message));
       console.log();
