@@ -4,7 +4,7 @@ process.title = 'api-console build';
 
 const program = require('commander');
 const colors = require('colors/safe');
-const builder = require('../build');
+const builder = require('../lib/build');
 
 var desc = 'Use this command to build the API Console as a standalone application that can be ';
 desc += 'used as a web page hosted on any server.';
@@ -18,6 +18,8 @@ program
     console.log();
     if (!raml) {
       console.log(colors.red('  Source RAML file not specified.'));
+      process.exit(1);
+      return;
     }
     try {
       const script = new builder.ApiBuild(raml, options);

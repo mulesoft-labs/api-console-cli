@@ -12,4 +12,6 @@ program
   .description('API console tools')
   .command('build',
     'Builds the API console application source code for given RAML file.')
+  .command('generate-json',
+    'Generates a JSON file from RAML spec that is used in the API console')
   .parse(process.argv);
