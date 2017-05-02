@@ -13,8 +13,12 @@ program
   .arguments('<raml>')
   .description(desc)
   .option('-o, --output', 'Output dir. Default to "./build/".')
-  .option('--console-source',
-    'An URL to a zip file with the API console source. Defaul to current release')
+  .option('-s, --console-source', 'Set a path / URL to console\'s source zip file.')
+  .option('--use-json', 'If set, it will generate JSON file instead of using RAML parser.')
+  .option('--inline-json',
+    'Only with --use-json set, inserts the JSON data in the index file. ' +
+    'Not valid with --embedded option.')
+  .option('--embedded', 'If set it will create an embeddable version of the console.')
   .option('--verbose', 'Print verbose messages.')
   .action(function(raml, options) {
     console.log();
