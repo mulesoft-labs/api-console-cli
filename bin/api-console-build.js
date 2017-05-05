@@ -5,24 +5,32 @@ process.title = 'api-console build';
 const program = require('commander');
 const colors = require('colors/safe');
 const {ApiBuild} = require('../lib/build');
-
-var desc = 'Use this command to build the API Console as a standalone application that can be ';
-desc += 'used as a web page hosted on any server.';
+var docs = require('./build-help.json');
 
 program
   .arguments('<raml>')
-  .description(desc)
-  .option('-o, --output', 'Output dir. Default to "./build/".')
-  .option('-s, --console-source', 'Set a path / URL to console\'s source zip file.')
-  .option('--use-json', 'If set, it will generate JSON file instead of using RAML parser.')
-  .option('--inline-json',
-    'Only with --use-json set, inserts the JSON data in the index file. ' +
-    'Not valid with --embedded option.')
-  .option('--embedded', 'If set it will create an embeddable version of the console.')
+  .description(docs.main)
+  .option('-o, --output', docs.output)
+  .option('-s, --source', docs.source)
+  .option('-f, --main-file', docs.mainFile)
+  .option('-z, --source-is-zip', docs.sourceIsZip)
+  .option('-j, --json', docs.useJson)
+  .option('-i, --inline-json', docs.inlineJson)
+  .option('-e, --embedded', docs.embedded)
+  .option('-l, --compilation-level', docs.jsCompilationLevel)
+  .option('--no-optimisation', docs.noOptimisation)
+  .option('--no-css-optimisation', docs.noCssOptimisation)
+  .option('--no-html-optimisation', docs.noHtmlOptimisation)
+  .option('--no-js-optimisation', docs.noJsOptimisation)
+  .option('--no-try-it', docs.noTryIt)
+  .option('--narrow-view', docs.narrowView)
+  .option('--proxy', docs.proxy)
+  .option('--proxy-encode-url', docs.proxyEncodeUrl)
+  .option('--append-headers', docs.appendHeaders)
   .option('--verbose', 'Print verbose messages.')
   .action(function(raml, options) {
-    console.log();
     if (!raml) {
+      console.log();
       console.log(colors.red('  Source RAML file not specified.'));
       process.exit(1);
       return;
@@ -46,7 +54,7 @@ program
     console.log('  Examples:');
     console.log();
     console.log('    $ api-console build ./api.raml');
-    console.log('    $ api-console build http://domain.com/api.raml');
+    console.log('    $ api-console build http://domain.com/api.raml --json');
     console.log('    $ api-console build ./api.raml -o "../api-docs"');
     console.log();
   })

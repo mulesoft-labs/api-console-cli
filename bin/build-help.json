@@ -1,0 +1,20 @@
+{
+  "main": "Use this command to build the API Console as a standalone application that can be used as a web page hosted on any server",
+  "output": "Output location of bundled API Console. Default to \"./build\".",
+  "source": "Path or URL to API console source. By default it will be latest release from GitHub. Can point to a local directory or a zip file.",
+  "mainFile": "Entry point to the API console application. Don't set when downloading console's source code from GitHub (when source is not set)",
+  "sourceIsZip": "Set to true if the API console source points to a zip file that should be uncopressed. Don't set with empty source.",
+  "useJson": "Generate a JSON file from RAML spec and use pre-generated JSON to load it into the console.",
+  "inlineJson": "Set to true to inline generated JSON data in the main file. Use only with --use-json",
+  "embedded": "Generate separate import file for the conole's source code.",
+  "noTryIt": "Set no-tryit attribute on the <api-console> element that will disable request / response panels.",
+  "narrowView": "Set the narrow attribute on the <api-console> element that will force the console to render the mobile like view.",
+  "proxy": "Set proxy URL to pass all HTTP traffic through it.",
+  "proxyEncodeUrl": "Encode URL value before appending it to the proxy prefix. Only valid with --proxy option set.",
+  "appendHeaders": "Set list of headers to add to every HTTP request sent from the console. It should be HTTP headers string. Replace new lines with '\\n'",
+  "jsCompilationLevel": "Level of JavaScript compilation used by Google Closure Compiler. Possible options are WHITESPACE_ONLY and SIMPLE.",
+  "noOptimisation": "For development. Speeds up build time, produces more code. Same as setting --no-css-optimisation --no-html-optimisation and --no-js-optimisation",
+  "noCssOptimisation": "Disable CSS minification (CSS files and <style> declarations). ",
+  "noHtmlOptimisation": "Disables HTML minification and comments removal.",
+  "noJsOptimisation": "Disables JavaScript compilation with Google Closure Compiler."
+}
