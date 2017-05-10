@@ -10,8 +10,8 @@ desc += 'and its components. You can use the file to optimise loading time of th
 program
   .arguments('<raml>', 'Path to the RAML file. Can be an URL.')
   .description(desc)
-  .option('-o, --output', 'Output file. Default to "./api.json".')
-  .option('-p, --pretty-print', 'Generated JSON will be formatted,')
+  .option('-o, --output [value]', 'Output file. Default to "./api.json".')
+  .option('-p, --pretty-print', 'Generated JSON will be formatted')
   .option('--verbose', 'Print verbose messages.')
   .action(function(raml, options) {
     console.log();
