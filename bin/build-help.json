@@ -13,7 +13,7 @@
   "proxyEncodeUrl": "Encode URL value before appending it to the proxy prefix. Only valid with --proxy option set.",
   "appendHeaders": "Set list of headers to add to every HTTP request sent from the console. It should be HTTP headers string. Replace new lines with '\\n'",
   "jsCompilationLevel": "Level of JavaScript compilation used by Google Closure Compiler. Possible options are WHITESPACE_ONLY and SIMPLE.",
-  "noOptimisation": "For development. Speeds up build time, produces more code. Same as setting --no-css-optimisation --no-html-optimisation and --no-js-optimisation",
+  "nooptimization": "For development. Speeds up build time, produces more code. Same as setting --no-css-optimisation --no-html-optimisation and --no-js-optimisation",
   "noCssOptimisation": "Disable CSS minification (CSS files and <style> declarations). ",
   "noHtmlOptimisation": "Disables HTML minification and comments removal.",
   "noJsOptimisation": "Disables JavaScript compilation with Google Closure Compiler."
