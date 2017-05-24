@@ -37,8 +37,15 @@ program
     }
     try {
       const script = new ApiBuild(raml, options);
-      script.run().catch((cause) => {
-        throw new Error(cause.message);
+      script.run()
+      .catch((cause) => {
+        console.log(colors.red('  ' + cause.message));
+        console.log();
+        if (options.verbose) {
+          console.log(cause.stack);
+          console.log();
+        }
+        process.exit(1);
       });
     } catch (e) {
       console.log(colors.red('  ' + e.message));

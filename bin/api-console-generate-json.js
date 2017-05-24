@@ -24,7 +24,13 @@ program
       const script = new generator.JsonGenerator(raml, options);
       script.run()
       .catch((cause) => {
-        throw new Error(cause.message);
+        console.log(colors.red('  ' + cause.message));
+        console.log();
+        if (options.verbose) {
+          console.log(cause.stack);
+          console.log();
+        }
+        process.exit(1);
       });
     } catch (e) {
       console.log(colors.red('  ' + e.message));
