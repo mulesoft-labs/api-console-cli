@@ -14,9 +14,7 @@
   "undef": true,
   "unused": true,
   "newcap": false,
+  "mocha": true,
   "globals": {
-    "Polymer": true,
-    "fetch": true,
-    "Headers": true
   }
 }
