@@ -4,7 +4,7 @@
   "description": "A set of dev tools for API console",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha 'test/*.test.js' --reporter spec"
   },
   "keywords": [
     "API Console",
@@ -21,6 +21,7 @@
     "url": "git://github.com/advanced-rest-client/api-console-cli.git"
   },
   "dependencies": {
+    "colors": "^1.1.2",
     "api-console-builder": "0.2.2",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
@@ -31,7 +32,10 @@
     "unzip": "^0.1.11",
     "update-notifier": "^1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  },
   "bin": {
     "api-console": "bin/api-console-cli.js"
   }
