@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "colors": "^1.1.2",
-    "api-console-builder": "0.3.0",
+    "api-console-builder": "^0.4.0",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
     "del": "^2.2.2",
