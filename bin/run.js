@@ -14,6 +14,6 @@ program
     'Builds the API console application source code for given RAML file.')
   .command('generate-json',
     'Generates a JSON file from RAML spec that is used in the API console')
-  .command('serve',
+  .command('serve [path]',
     'Creates a www server do run the console locally')
   .parse(process.argv);
