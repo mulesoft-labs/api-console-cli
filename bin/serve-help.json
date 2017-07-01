@@ -1,0 +1,11 @@
+{
+  "description": "Creates a http server on local machine and serves content of current folder.",
+  "root": "The root directory to serve",
+  "entrypoint": "The path on disk of the entry point HTML file that will be served. Must be contained by `root`. Defaults to `index.html`.",
+  "port": "The port to serve from",
+  "hostname": "The hostname to serve from.",
+  "headers": "Headers to send with every response.",
+  "open": "Whether to open the browser when run",
+  "browser": "The browser(s) to open when run with open argument.",
+  "openPath": "The URL path to open in each browser"
+}
