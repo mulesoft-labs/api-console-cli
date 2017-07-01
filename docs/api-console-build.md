@@ -31,6 +31,12 @@ Type: `String`
 
 Source of the API console to use. By default this will use latest release version. If set and the value is an URL, it must point to a zip file and will set the `--source-is-zip` option automatically. If points to a local path it can be either a folder with the API Console application or to zip file with the API Console sources. In later case you must set `--source-is-zip` option.
 
+#### -t, --tag
+
+Type: `String`
+
+Release tag name to use to build the console. To be used to build specific release of the console. Only versions >= 4.0.0.
+
 #### -o, --output [value]
 
 Type: `String`
@@ -134,37 +140,25 @@ Type: `Boolean`
 
 Disables JavaScript compilation with Google Closure Compiler.
 
-#### --no-try-it
-
-Type: `Boolean`
-
-Will set `no-tryit` attribute on the `<api-console>` element that will disable request / response panels.
-
-#### --narrow-view
-
-Type: `Boolean`
-
-Will set the `narrow` attribute on the `<api-console>` element that will force the console to render the mobile like view.
-
-#### --proxy [value]
+#### -a, --arguments
 
 Type: `String`
 
-Will set the `proxy` attribute on the `<api-console>` element. Sets the proxy URL for all HTTP requests sent from the console.
+List of attributes to set on the console. For attributes with values set value after a colon (:).
 
-If set then all URLs will be altered before sending the data to a transport library by prefixing the URL with this value.
+##### Examples
 
-#### --proxy-encode-url
+```shell
+$ api-console build -a no-try-it
+```
 
-Type: `Boolean`
+```shell
+$ api-console build -a proxy:http://domain.com
+```
 
-Will set the `proxy-encode-url` attribute on the `<api-console>` element that will encode the URL value before appending it to the proxy prefix.
-
-#### --append-headers [value]
-
-Type: `String`
-
-Will set the `append-headers` attribute on the `<api-console>`  element. Forces the console to send specific list of headers, overriding user input if needed.
+```shell
+$ api-console build -a append-headers:x-api-token:123\\naccept:application/json
+```
 
 #### --verbose
 
