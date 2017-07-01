@@ -10,7 +10,6 @@ const OUTPUT_DIR = './some';
 const MAIN_FILE = 'imports.html';
 const COMPILATION_LEVEL = 'SIMPLE';
 const PROXY = 'http://proxy.org';
-const HEADERS = 'x-api: test';
 
 describe('api-console-cli', () => {
   describe('Builder', () => {
@@ -43,70 +42,85 @@ describe('api-console-cli', () => {
           assert.isTrue(options.useJson);
         });
 
-        it('The dest should be undefined', function() {
+        it('The dest should not be undefined', function() {
           assert.isUndefined(options.dest);
         });
 
-        it('The mainFile should be undefined', function() {
+        it('The mainFile should not be undefined', function() {
           assert.isUndefined(options.mainFile);
         });
 
-        it('The sourceIsZip should be undefined', function() {
+        it('The sourceIsZip should not be undefined', function() {
           assert.isUndefined(options.sourceIsZip);
         });
 
-        it('The inlineJson should be undefined', function() {
+        it('The inlineJson should not be undefined', function() {
           assert.isUndefined(options.inlineJson);
         });
 
-        it('The embedded should be undefined', function() {
+        it('The embedded should be not undefined', function() {
           assert.isUndefined(options.embedded);
         });
 
-        it('The jsCompilationLevel should be undefined', function() {
+        it('The jsCompilationLevel should not be undefined', function() {
           assert.isUndefined(options.jsCompilationLevel);
         });
 
-        it('The noOptimization should be undefined', function() {
+        it('The noOptimization should be not undefined', function() {
           assert.isUndefined(options.noOptimization);
         });
 
-        it('The noCssOptimization should be set', function() {
+        it('The noCssOptimization should not be set', function() {
           assert.isUndefined(options.noCssOptimization);
         });
 
-        it('The noHtmlOptimization should be set', function() {
+        it('The noHtmlOptimization should not be set', function() {
           assert.isUndefined(options.noHtmlOptimization);
         });
 
-        it('The noJsOptimization should be set', function() {
+        it('The noJsOptimization should not be set', function() {
           assert.isUndefined(options.noJsOptimization);
         });
 
-        it('The noTryit should be set', function() {
-          assert.isUndefined(options.noTryit);
+        it('The attributes should not be set', function() {
+          assert.isUndefined(options.attributes);
         });
 
-        it('The narrowView should be set', function() {
-          assert.isUndefined(options.narrowView);
-        });
-
-        it('The proxy should be set', function() {
-          assert.isUndefined(options.proxy);
-        });
-
-        it('The proxyEncodeUrl should be set', function() {
-          assert.isUndefined(options.proxyEncodeUrl);
-        });
-
-        it('The appendHeaders should be set', function() {
-          assert.isUndefined(options.appendHeaders);
+        it('The tagVersion should not be set', function() {
+          assert.isUndefined(options.tagVersion);
         });
       });
 
       describe('options validation for set values', () => {
         var options;
         var build;
+
+        function findAttribute(name) {
+          if (!options.attributes || !(options.attributes instanceof Array)) {
+            return;
+          }
+          for (let i = 0, len = options.attributes.length; i < len; i++) {
+            let item = options.attributes[i];
+            if (!item) {
+              continue;
+            }
+            if (typeof item === 'string') {
+              if (item === name) {
+                return item;
+              }
+              continue;
+            }
+            let keys = Object.keys(item);
+            for (let j = 0, lenKeys = keys.length; j < lenKeys; j++) {
+              if (keys[j] === name) {
+                return {
+                  name: keys[j],
+                  value: item[keys[j]]
+                };
+              }
+            }
+          }
+        }
 
         before(function() {
           var args = [];
@@ -125,13 +139,10 @@ describe('api-console-cli', () => {
           args.push('--no-css-optimization');
           args.push('--no-html-optimization');
           args.push('--no-js-optimization');
-          args.push('--no-try-it');
-          args.push('--narrow-view');
-          args.push('--proxy');
-          args.push(PROXY);
-          args.push('--proxy-encode-url');
-          args.push('--append-headers');
-          args.push(HEADERS);
+          args.push('-a');
+          args.push('proxy:' + PROXY);
+          args.push('-a');
+          args.push('narrow');
           return OptionsTestBuilder.optionsForBuild(args)
           .then((opts) => {
             build = new ApiBuild(API_URL, opts);
@@ -192,24 +203,24 @@ describe('api-console-cli', () => {
           assert.isTrue(options.noJsOptimization);
         });
 
-        it('The tryIt should be true', function() {
-          assert.isTrue(options.noTryit);
+        it('Attribute with value should be set', function() {
+          var proxy = findAttribute('proxy');
+          assert.ok(proxy);
         });
 
-        it('The narrowView should be true', function() {
-          assert.isTrue(options.narrowView);
+        it('Attribute\'s name should be set', function() {
+          var proxy = findAttribute('proxy');
+          assert.equal(proxy.name, 'proxy');
         });
 
-        it('The proxy should be set', function() {
-          assert.equal(options.proxy, PROXY);
+        it('Attribute\'s value should be set', function() {
+          var proxy = findAttribute('proxy');
+          assert.equal(proxy.value, 'http://proxy.org');
         });
 
-        it('The proxyEncodeUrl should be true', function() {
-          assert.isTrue(options.proxyEncodeUrl);
-        });
-
-        it('The appendHeaders should be set', function() {
-          assert.equal(options.appendHeaders, HEADERS);
+        it('Boolean attribute should be set', function() {
+          var narrow = findAttribute('narrow');
+          assert.typeOf(narrow, 'string');
         });
       });
     });
