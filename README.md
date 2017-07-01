@@ -39,6 +39,12 @@ Run `api-console generate-json --help` for the full list of available options & 
 
 Detailed description of all options you can find here: [api-console generate-json doc](docs/api-console-generate-json.md)
 
+### `api-console serve [options] [path]`
+
+Runs a local web server serving a content of the current directory or selected path.
+
+Detailed description of all options you can find here: [api-console serve doc](docs/api-console-serve.md)
+
 ## Contribution
 
 Your feedback is welcome. If you need support for a method, command options other than described here please, file a feature request. If you find a bug, please, file a bug report with details so we can fix it.
