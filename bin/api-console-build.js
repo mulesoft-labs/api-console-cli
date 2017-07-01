@@ -7,26 +7,37 @@ const colors = require('colors/safe');
 const {ApiBuild} = require('../lib/build');
 var docs = require('./build-help.json');
 
+function collectArguments(val, memo) {
+  if (!val) {
+    return;
+  }
+  var index = val.indexOf(':');
+  if (index !== -1) {
+    let name = val.substr(0, index);
+    let value = val.substr(index + 1);
+    val = {};
+    val[name] = value;
+  }
+  memo.push(val);
+  return memo;
+}
 program
   .arguments('<raml>')
   .description(docs.main)
-  .option('-o, --output [value]', docs.output)
-  .option('-s, --source [value]', docs.source)
-  .option('-f, --main-file [value]', docs.mainFile)
+  .option('-o, --output [path]', docs.output)
+  .option('-s, --source [path]', docs.source)
+  .option('-t, --tag [version]', docs.tagVersion)
+  .option('-f, --main-file [path]', docs.mainFile)
   .option('-z, --source-is-zip', docs.sourceIsZip)
   .option('-j, --json', docs.useJson)
   .option('-i, --inline-json', docs.inlineJson)
   .option('-e, --embedded', docs.embedded)
-  .option('-l, --compilation-level [value]', docs.jsCompilationLevel)
+  .option('-l, --compilation-level [level]', docs.jsCompilationLevel)
+  .option('-a, --attributes [name]:<value>', docs.attributes, collectArguments, [])
   .option('--no-optimization', docs.nooptimization)
   .option('--no-css-optimization', docs.noCssoptimization)
   .option('--no-html-optimization', docs.noHtmloptimization)
   .option('--no-js-optimization', docs.noJsoptimization)
-  .option('--no-try-it', docs.noTryIt)
-  .option('--narrow-view', docs.narrowView)
-  .option('--proxy [value]', docs.proxy)
-  .option('--proxy-encode-url', docs.proxyEncodeUrl)
-  .option('--append-headers [value]', docs.appendHeaders)
   .option('--verbose', 'Print verbose messages.')
   .action(function(raml, options) {
     if (!raml) {
@@ -63,6 +74,7 @@ program
     console.log('    $ api-console build ./api.raml');
     console.log('    $ api-console build http://domain.com/api.raml --json');
     console.log('    $ api-console build ./api.raml -o "../api-docs"');
+    console.log('    $ api-console build ./api.raml -a proxy:https://proxy.com');
     console.log();
   })
   .parse(process.argv);

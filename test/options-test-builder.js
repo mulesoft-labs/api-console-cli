@@ -1,5 +1,20 @@
 const {Command} = require('commander');
 
+function collectArguments(val, memo) {
+  if (!val) {
+    return;
+  }
+  var index = val.indexOf(':');
+  if (index !== -1) {
+    let name = val.substr(0, index);
+    let value = val.substr(index + 1);
+    val = {};
+    val[name] = value;
+  }
+  memo.push(val);
+  return memo;
+}
+
 class OptionsTestBuilder {
 
   static parseArgs(args) {
@@ -19,23 +34,20 @@ class OptionsTestBuilder {
       var program = new Command();
       program
         .arguments('<raml>')
-        .option('-o, --output [value]')
-        .option('-s, --source [value]')
-        .option('-f, --main-file [value]')
+        .option('-o, --output [path]')
+        .option('-s, --source [path]')
+        .option('-t, --tag [version]')
+        .option('-f, --main-file [path]')
         .option('-z, --source-is-zip')
         .option('-j, --json')
         .option('-i, --inline-json')
         .option('-e, --embedded')
-        .option('-l, --compilation-level [value]')
+        .option('-l, --compilation-level [level]')
+        .option('-a, --attributes [name]:<value>', '', collectArguments, [])
         .option('--no-optimization')
         .option('--no-css-optimization')
         .option('--no-html-optimization')
         .option('--no-js-optimization')
-        .option('--no-try-it')
-        .option('--narrow-view')
-        .option('--proxy [value]')
-        .option('--proxy-encode-url')
-        .option('--append-headers [value]')
         .option('--verbose', 'Print verbose messages.')
         .action((raml, options) => {
           resolve(options);
