@@ -1,3 +1,17 @@
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/mulesoft-labs/api-console-cli/compare/0.2.0...v0.2.1) (2017-07-04)
+
+
+### Docs
+
+* Updated documentation for the CLI ([e4d34eb](https://github.com/mulesoft-labs/api-console-cli/commit/e4d34eb))
+
+### Update
+
+* Updated version of the enhancer module. ([44c13ff](https://github.com/mulesoft-labs/api-console-cli/commit/44c13ff))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/mulesoft-labs/api-console-cli/compare/v0.1.4...v0.2.0) (2017-07-01)
 
