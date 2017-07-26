@@ -6,6 +6,7 @@ The command-line tool for the API Console Web Component.
 
 - **build** - Build the api console application optimized for production
 - **generate-json** - Regenerates the JSON file that can be used as a data source in the Console
+- **serve** - Creates a http server on local machine and serves content of current folder.
 
 ## Installation
 
