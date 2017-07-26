@@ -23,6 +23,7 @@ function collectArguments(val, memo) {
 }
 program
   .arguments('<raml>')
+  .usage('\n\n  $ api-console build [options] <raml>')
   .description(docs.main)
   .option('-o, --output [path]', docs.output)
   .option('-s, --source [path]', docs.source)
@@ -69,7 +70,7 @@ program
     }
   })
   .on('--help', function() {
-    console.log('  Examples:');
+    console.log('\n\n  Examples:');
     console.log();
     console.log('    $ api-console build ./api.raml');
     console.log('    $ api-console build http://domain.com/api.raml --json');

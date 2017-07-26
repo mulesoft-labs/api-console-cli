@@ -15,6 +15,7 @@ function collect(val, memo) {
 }
 
 program
+  .usage('\n\n  $ api-console serve [options] [path]')
   .description(docs.description)
   .option('-r, --root [value]', docs.root)
   .option('-e, --entrypoint [value]', docs.entrypoint)
@@ -25,11 +26,12 @@ program
   .option('-b, --browser [value]', docs.browser, collect, [])
   .option('-l, --open-path [value]', docs.openPath)
   .on('--help', function() {
-    console.log('  Examples:');
+    console.log('\n\n  Examples:');
     console.log();
     console.log('    $ api-console serve');
     console.log('    $ api-console serve build/');
     console.log('    $ api-console serve --open');
+    console.log('    $ api-console serve -H 192.168.1.10 -p 8081');
     console.log();
   })
   .parse(process.argv);

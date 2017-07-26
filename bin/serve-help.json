@@ -1,5 +1,5 @@
 {
-  "description": "Creates a http server on local machine and serves content of current folder.",
+  "description": "Creates a http server on local machine and serves content of current folder.\n  If [path] is set then it serves content of the paht location.",
   "root": "The root directory to serve",
   "entrypoint": "The path on disk of the entry point HTML file that will be served. Must be contained by `root`. Defaults to `index.html`.",
   "port": "The port to serve from",

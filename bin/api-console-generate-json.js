@@ -5,14 +5,15 @@ const colors = require('colors/safe');
 const generator = require('../lib/generate-json');
 
 var desc = 'Use this command to create a JSON file that is recognizable by the API console ';
-desc += 'and its components. You can use the file to optimise loading time of the API console.';
+desc += 'and its components.\n  You can use the file to optimise loading time of the API console.';
 
 program
   .arguments('<raml>', 'Path to the RAML file. Can be an URL.')
+  .usage('\n\n  $ api-console generate-json [options] <raml>')
   .description(desc)
-  .option('-o, --output [value]', 'Output file. Default to "./api.json".')
+  .option('-o, --output [value]', 'Output file. Default to "./api.json"')
   .option('-p, --pretty-print', 'Generated JSON will be formatted')
-  .option('--verbose', 'Print verbose messages.')
+  .option('--verbose', 'Print verbose messages')
   .action(function(raml, options) {
     console.log();
     if (!raml) {
@@ -43,7 +44,7 @@ program
     }
   })
   .on('--help', function() {
-    console.log('  Examples:');
+    console.log('\n\n  Examples:');
     console.log();
     console.log('    $ api-console generate-json ./api.raml');
     console.log('    $ api-console generate-json http://domain.com/api.raml');
