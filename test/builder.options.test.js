@@ -30,10 +30,6 @@ describe('api-console-cli', () => {
           });
         });
 
-        it('API console source should equal hardcoded source url', function() {
-          assert.equal(options.src, build._masterSource);
-        });
-
         it('RAML file source is set', function() {
           assert.equal(options.raml, LOCAL_API_URL);
         });
@@ -149,10 +145,6 @@ describe('api-console-cli', () => {
             build.parseOptions();
             options = build.moduleOptions;
           });
-        });
-
-        it('API console source should be set', function() {
-          assert.equal(options.src, build._masterSource);
         });
 
         it('RAML file source is set', function() {
