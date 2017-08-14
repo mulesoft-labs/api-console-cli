@@ -4,9 +4,10 @@ The command-line tool for the API Console Web Component.
 
 ## Features
 
-- **build** - Build the api console application optimized for production
-- **generate-json** - Regenerates the JSON file that can be used as a data source in the Console
-- **serve** - Creates a http server on local machine and serves content of current folder.
+-   **build** - Build the api console application optimized for production
+-   **generate-json** - Regenerates the JSON file that can be used as a data source in the Console
+-   **serve** - Creates a http server on local machine and serves content of current folder.
+-   **dev** - Observes a directory with the API spec and runs the API console preview. Refreshes the API data when a file in the directory change.
 
 ## Installation
 
@@ -45,6 +46,12 @@ Detailed description of all options you can find here: [api-console generate-jso
 Runs a local web server serving a content of the current directory or selected path.
 
 Detailed description of all options you can find here: [api-console serve doc](docs/api-console-serve.md)
+
+### `api-console dev [options] <raml>`
+
+Runs a local web server serving a content of the current directory or selected path and observers for changes to any of the project files. When change occur it updates API console data.
+
+Detailed description of all options you can find here: [api-console dev doc](docs/api-console-dev.md)
 
 ## Contribution
 

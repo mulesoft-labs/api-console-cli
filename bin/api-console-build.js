@@ -35,7 +35,7 @@ program
   .option('-e, --embedded', docs.embedded)
   .option('-l, --compilation-level [level]', docs.jsCompilationLevel)
   .option('-a, --attributes [name]:<value>', docs.attributes, collectArguments, [])
-  .option('--no-optimization', docs.nooptimization)
+  .option('-n, --no-optimization', docs.nooptimization)
   .option('--no-css-optimization', docs.noCssoptimization)
   .option('--no-html-optimization', docs.noHtmloptimization)
   .option('--no-js-optimization', docs.noJsoptimization)

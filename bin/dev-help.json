@@ -1,0 +1,12 @@
+{
+  "main": "Use this command to run a local server with the API console that displays documentation for api spec from your local filesystem. It observes changes to the project directory and updates the console when something has changed.",
+  "source": "Path or URL to API console source. By default it will be latest release from GitHub. Can point to a local directory or a zip file.",
+  "sourceIsZip": "Set to true if the API console source points to a zip file that should be uncopressed. Don't set with empty source.",
+  "tagVersion": "Release tag name to use to build the console. To be used to build specific release of the console. Only versions >= 4.0.0",
+  "open": "Whether to open the browser when run",
+  "port": "Port number of the web server.",
+  "host": "Host name of the web server.",
+  "api": "The RAML entry point file.",
+  "projectRoot": "API project folder location. Defaults to <raml> file directory. The <raml> file has to be in project root.",
+  "noBower": "If set to true it skips bower components installation. Use it if the src points to an api-console sources with all dependencies installed."
+}
