@@ -47,6 +47,12 @@ Runs a local web server serving a content of the current directory or selected p
 
 Detailed description of all options you can find here: [api-console serve doc](docs/api-console-serve.md)
 
+### `api-console dev [options] <raml>`
+
+Runs a local web server serving a content of the current directory or selected path and observers for changes to any of the project files. When change occur it updates API console data.
+
+Detailed description of all options you can find here: [api-console dev doc](docs/api-console-dev.md)
+
 ## Contribution
 
 Your feedback is welcome. If you need support for a method, command options other than described here please, file a feature request. If you find a bug, please, file a bug report with details so we can fix it.
