@@ -42,6 +42,19 @@ describe('api-console-cli', () => {
         var serve = new ApiServe(opts);
         assert.deepEqual(serve.opts.browser, ['test']);
       });
+
+      it(`Sets protocol from option argument`, function() {
+        var opts = {
+          protocol: 'https'
+        };
+        var serve = new ApiServe(opts);
+        assert.deepEqual(serve.opts.protocol, 'https');
+      });
+
+      it(`Sets protocol to http by default`, function() {
+        var serve = new ApiServe({});
+        assert.deepEqual(serve.opts.protocol, 'http');
+      });
     });
   });
 });

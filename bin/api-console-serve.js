@@ -25,6 +25,9 @@ program
   .option('-o, --open', docs.open)
   .option('-b, --browser [value]', docs.browser, collect, [])
   .option('-l, --open-path [value]', docs.openPath)
+  .option('-P, --protocol [value]', docs.protocol)
+  .option('-k, --key-path [value]', docs.keyPath)
+  .option('-c, --cert-path [value]', docs.certPath)
   .on('--help', function() {
     console.log('\n\n  Examples:');
     console.log();
@@ -32,6 +35,7 @@ program
     console.log('    $ api-console serve build/');
     console.log('    $ api-console serve --open');
     console.log('    $ api-console serve -H 192.168.1.10 -p 8081');
+    console.log('    $ api-console serve -H mytest.local -p 8081 -P https -k ./path/to/key -c ./path/to/cert');
     console.log();
   })
   .parse(process.argv);

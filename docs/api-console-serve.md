@@ -74,3 +74,21 @@ The browser(s) to open when run with open argument.
 Type: `String`
 
 The URL path to open in each browser
+
+#### `-P, --protocol [value]`
+
+Type: `String`
+
+The protocol, choice of [http, https], defaults to http
+
+#### `-k, --keyPath [value]`
+
+Type: `String`
+
+The file path to ssl key
+
+#### `-c, --certPath [value]`
+
+Type: `String`
+
+jThe file path to ssl cert
