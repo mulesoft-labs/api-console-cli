@@ -4,7 +4,7 @@
   "source": "Path or URL to API console source. By default it will be latest release from GitHub. Can point to a local directory or a zip file.",
   "mainFile": "Entry point to the API console application. Don't set when downloading console's source code from GitHub (when source is not set)",
   "sourceIsZip": "Set to true if the API console source points to a zip file that should be uncopressed. Don't set with empty source.",
-  "useJson": "Generate a JSON file from RAML spec and use pre-generated JSON to load it into the console.",
+  "json": "Generate a JSON file from RAML spec and use pre-generated JSON to load it into the console.",
   "inlineJson": "Set to true to inline generated JSON data in the main file. Use only with --use-json",
   "embedded": "Generate separate import file for the conole's source code. The Console can then be used as a HTML element",
   "attributes": "List of attributes to set on the console. For attributes with values set value after a colon (:).",

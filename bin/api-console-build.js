@@ -30,7 +30,7 @@ program
   .option('-t, --tag [version]', docs.tagVersion)
   .option('-f, --main-file [path]', docs.mainFile)
   .option('-z, --source-is-zip', docs.sourceIsZip)
-  .option('-j, --json', docs.useJson)
+  .option('-j, --json', docs.json)
   .option('-i, --inline-json', docs.inlineJson)
   .option('-e, --embedded', docs.embedded)
   .option('-l, --compilation-level [level]', docs.jsCompilationLevel)

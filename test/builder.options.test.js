@@ -34,8 +34,8 @@ describe('api-console-cli', () => {
           assert.equal(options.raml, LOCAL_API_URL);
         });
 
-        it('The useJson should be changed to true', function() {
-          assert.isTrue(options.useJson);
+        it('The json should be changed to true', function() {
+          assert.isTrue(options.json);
         });
 
         it('The dest should not be undefined', function() {
@@ -151,8 +151,8 @@ describe('api-console-cli', () => {
           assert.equal(options.raml, API_URL);
         });
 
-        it('The useJson should be true', function() {
-          assert.isTrue(options.useJson);
+        it('The json should be true', function() {
+          assert.isTrue(options.json);
         });
 
         it('The destination should be set', function() {
