@@ -6,6 +6,9 @@
   "scripts": {
     "test": "mocha 'test/*.test.js' --reporter spec"
   },
+  "engines": {
+    "node": ">=6.4.0"
+  },
   "keywords": [
     "API Console",
     "tools",
