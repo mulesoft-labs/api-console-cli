@@ -1,3 +1,26 @@
+<a name="0.2.5"></a>
+## [0.2.5](https://github.com/mulesoft-labs/api-console-cli/compare/v0.2.4...v0.2.5) (2017-11-10)
+
+* Updating engine minimum version to reflect actual state of requiremenets
+* Adding error message for incompatible engine versions.
+
+<a name="0.2.4"></a>
+## [0.2.4](https://github.com/mulesoft-labs/api-console-cli/compare/0.2.3...v0.2.4) (2017-10-16)
+
+* Added SSL options for serve command. Thanks @ralucas for this PR.
+
+<a name="0.2.3"></a>
+## [0.2.3](https://github.com/mulesoft-labs/api-console-cli/compare/0.2.2...0.2.3) (2017-08-14)
+
+* Adding `dev` command
+
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/mulesoft-labs/api-console-cli/compare/v0.2.1...0.2.2) (2017-07-26)
+
+* Updated builder and enhancer dependencies to fix issues with downloading latest release information
+* Now uses one code base for the `raml2obj` library
+* Updated help messages.
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/mulesoft-labs/api-console-cli/compare/0.2.0...v0.2.1) (2017-07-04)
 
