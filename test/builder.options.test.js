@@ -3,6 +3,7 @@
 const {ApiBuild} = require('../lib/build');
 const assert = require('chai').assert;
 const {OptionsTestBuilder} = require('./options-test-builder');
+const fs = require('fs-extra');
 
 const API_URL = 'https://domain.com/api.raml';
 const LOCAL_API_URL = 'api.raml';
@@ -231,6 +232,10 @@ describe('api-console-cli', () => {
           .then((opts) => {
             build = new ApiBuild('test/api.raml', opts);
           });
+        });
+
+        after(function() {
+          return fs.remove(OUTPUT_DIR);
         });
 
         it('Builds the console', function() {

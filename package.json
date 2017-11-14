@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "fs-extra": "^4.0.2",
     "mocha": "^3.2.0"
   },
   "bin": {
