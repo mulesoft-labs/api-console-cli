@@ -3,6 +3,7 @@
 const {ApiDev} = require('../lib/dev');
 const assert = require('chai').assert;
 const {OptionsTestDev} = require('./options-test-dev');
+const path = require('path');
 
 const API_FILE = 'test-api.raml';
 const PROJECT_ROOT = '../';
@@ -226,7 +227,10 @@ describe('api-console-cli', () => {
   describe('Builds dev version', () => {
     var build;
     before(function() {
-      build = new ApiDev('test/api.raml', {});
+      const projectRoot = path.join(__dirname, '..');
+      build = new ApiDev('test/api.raml', {
+        projectRoot: projectRoot
+      });
     });
 
     it('Builds the dev console', function() {
