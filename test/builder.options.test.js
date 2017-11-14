@@ -3,16 +3,18 @@
 const {ApiBuild} = require('../lib/build');
 const assert = require('chai').assert;
 const {OptionsTestBuilder} = require('./options-test-builder');
+const fs = require('fs-extra');
 
 const API_URL = 'https://domain.com/api.raml';
 const LOCAL_API_URL = 'api.raml';
-const OUTPUT_DIR = './some';
+const OUTPUT_DIR = './test/some';
 const MAIN_FILE = 'imports.html';
 const COMPILATION_LEVEL = 'SIMPLE';
 const PROXY = 'http://proxy.org';
 
 describe('api-console-cli', () => {
   describe('Builder', () => {
+
     describe('Local API file', () => {
       describe('options validation for defaults', () => {
         var options;
@@ -213,6 +215,32 @@ describe('api-console-cli', () => {
         it('Boolean attribute should be set', function() {
           var narrow = findAttribute('narrow');
           assert.typeOf(narrow, 'string');
+        });
+      });
+
+      describe('Performs the build', function() {
+        var build;
+        before(function() {
+          var args = [];
+          args.push('test/api.raml');
+          args.push('--output');
+          args.push(OUTPUT_DIR);
+          args.push('--json');
+          args.push('--inline-json');
+          args.push('--no-optimization');
+          return OptionsTestBuilder.optionsForBuild(args)
+          .then((opts) => {
+            build = new ApiBuild('test/api.raml', opts);
+          });
+        });
+
+        after(function() {
+          return fs.remove(OUTPUT_DIR);
+        });
+
+        it('Builds the console', function() {
+          this.timeout(270000);
+          return build.run();
         });
       });
     });
