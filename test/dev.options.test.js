@@ -222,4 +222,16 @@ describe('api-console-cli', () => {
       });
     });
   });
+
+  describe('Builds dev version', () => {
+    var build;
+    before(function() {
+      build = new ApiDev('test/api.raml', {});
+    });
+
+    it('Builds the dev console', function() {
+      this.timeout(270000);
+      return build.run();
+    });
+  });
 });
