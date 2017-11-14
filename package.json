@@ -24,7 +24,7 @@
     "url": "git://github.com/mulesoft-labs/api-console-cli.git"
   },
   "dependencies": {
-    "api-console-builder": "^0.4.2",
+    "api-console-builder": "^0.4.3",
     "api-console-dev-preview": "^0.1.0",
     "colors": "^1.1.2",
     "commander": "^2.11.0",
