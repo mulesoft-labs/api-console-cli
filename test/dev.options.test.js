@@ -224,18 +224,18 @@ describe('api-console-cli', () => {
     });
   });
 
-  describe('Builds dev version', () => {
-    var build;
-    before(function() {
-      const projectRoot = path.join(__dirname, '..');
-      build = new ApiDev('test/api.raml', {
-        projectRoot: projectRoot
-      });
-    });
-
-    it('Builds the dev console', function() {
-      this.timeout(270000);
-      return build.run();
-    });
-  });
+  // describe('Builds dev version', () => {
+  //   var build;
+  //   before(function() {
+  //     const projectRoot = path.join(__dirname, '..');
+  //     build = new ApiDev('test/api.raml', {
+  //       projectRoot: projectRoot
+  //     });
+  //   });
+  //
+  //   it('Builds the dev console', function() {
+  //     this.timeout(270000);
+  //     return build.run();
+  //   });
+  // });
 });
