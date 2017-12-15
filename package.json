@@ -27,11 +27,11 @@
     "api-console-builder": "^0.4.3",
     "api-console-dev-preview": "^0.1.0",
     "colors": "^1.1.2",
-    "commander": "^2.11.0",
+    "commander": "^2.12.2",
     "del": "^2.2.2",
     "glob": "^7.1.2",
     "polyserve": "^0.19.1",
-    "raml-json-enhance-node": "^0.2.6",
+    "raml-json-enhance-node": "^0.3.0",
     "semver": "^5.3.0",
     "update-notifier": "^1.0.0"
   },
