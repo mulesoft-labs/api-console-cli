@@ -1,6 +1,6 @@
 {
   "name": "api-console-cli",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "A set of dev tools for API console",
   "main": "main.js",
   "scripts": {
