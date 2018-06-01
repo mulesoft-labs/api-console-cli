@@ -2,4 +2,4 @@
 // Apparently the commander module has an issue and on windows it ignores
 // cli cmmand name and try to use module name instead.
 // https://github.com/tj/commander.js/issues/714
-require('./api-console-generate-json');
+require('./api-console-generate-model');

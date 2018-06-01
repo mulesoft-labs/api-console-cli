@@ -22,33 +22,26 @@ function collectArguments(val, memo) {
   return memo;
 }
 program
-  .arguments('<raml>')
-  .usage('\n\n  $ api-console build [options] <raml>')
+  .arguments('<api>')
+  .usage('\n\n  $ api-console build [options]')
   .description(docs.main)
   .option('-o, --output [path]', docs.output)
   .option('-s, --source [path]', docs.source)
   .option('-t, --tag [version]', docs.tagVersion)
-  .option('-f, --main-file [path]', docs.mainFile)
-  .option('-z, --source-is-zip', docs.sourceIsZip)
-  .option('-j, --json', docs.useJson)
-  .option('-i, --inline-json', docs.inlineJson)
   .option('-e, --embedded', docs.embedded)
-  .option('-l, --compilation-level [level]', docs.jsCompilationLevel)
-  .option('-a, --attributes [name]:<value>', docs.attributes, collectArguments, [])
-  .option('-n, --no-optimization', docs.nooptimization)
-  .option('--no-css-optimization', docs.noCssoptimization)
-  .option('--no-html-optimization', docs.noHtmloptimization)
-  .option('--no-js-optimization', docs.noJsoptimization)
+  .option('-a, --api', docs.api)
+  .option('-at, --api-type', docs.apiType)
+  .option('-theme-file', docs.themeFile)
+  .option('-attr, --attributes [name]:<value>', docs.attributes, collectArguments, [])
+  .option('-no-oauth', docs.noOauth)
+  .option('-no-crypto-js', docs.noCryptoJs)
+  .option('-no-js-polyfills', docs.noJsPolyfills)
+  .option('-no-xhr', docs.noXhr)
+  .option('-no-web-animations', docs.noWebAnimations)
   .option('--verbose', 'Print verbose messages.')
-  .action(function(raml, options) {
-    if (!raml) {
-      console.log();
-      console.log(colors.red('  Source RAML file not specified.'));
-      process.exit(1);
-      return;
-    }
+  .action(function(options) {
     try {
-      const script = new ApiBuild(raml, options);
+      const script = new ApiBuild(options);
       script.run()
       .catch((cause) => {
         console.log(colors.red('  ' + cause.message));
@@ -72,10 +65,10 @@ program
   .on('--help', function() {
     console.log('\n\n  Examples:');
     console.log();
-    console.log('    $ api-console build ./api.raml');
-    console.log('    $ api-console build http://domain.com/api.raml --json');
-    console.log('    $ api-console build ./api.raml -o "../api-docs"');
-    console.log('    $ api-console build ./api.raml -a proxy:https://proxy.com');
+    console.log('    $ api-console build -a ./api.raml -at RAML 1.0');
+    console.log('    $ api-console build -a http://domain.com/api.raml -at RAML 1.0');
+    console.log('    $ api-console build -a ./api.raml -at RAML 1.0 -o "../api-docs"');
+    console.log('    $ api-console build -a ./api.raml -at RAML 1.0 -attr proxy:https://proxy.com');
     console.log();
   })
   .parse(process.argv);
