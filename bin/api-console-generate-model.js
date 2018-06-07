@@ -2,27 +2,46 @@ process.title = 'api-console generate-json';
 
 const program = require('commander');
 const colors = require('colors/safe');
-const generator = require('../lib/generate-json');
 
-var desc = 'Use this command to create a JSON file that is recognizable by the API console ';
-desc += 'and its components.\n  You can use the file to optimise loading time of the API console.';
+const desc = 'Use this command to create a data model from the API file. ';
+const apiTypes = ['RAML 0.8', 'RAML 1.0', 'OAS 1.0', 'OAS 2.0', 'OAS 3.0'];
 
 program
-  .arguments('<raml>', 'Path to the RAML file. Can be an URL.')
-  .usage('\n\n  $ api-console generate-json [options] <raml>')
+  .arguments('<api-file>', 'Path to the API spec file. Can be an URL.')
+  .usage('\n\n  $ api-console generate-json [options] -T "RAML 1.0" <api-file>')
   .description(desc)
-  .option('-o, --output [value]', 'Output file. Default to "./api.json"')
+  .option('-T, --api-type [value]', 'API type, can be on of "' + apiTypes.join('", "') + '"')
+  .option('-o, --output [value]', 'Output file. Default to "./api-model.json"')
   .option('-p, --pretty-print', 'Generated JSON will be formatted')
   .option('--verbose', 'Print verbose messages')
-  .action(function(raml, options) {
+  .action(function(apiFile, options) {
     console.log();
-    if (!raml) {
-      console.log(colors.red('  Source RAML file not specified.'));
+    if (!apiFile) {
+      console.log(colors.red('  Source API file not specified.'));
+      console.log();
+      process.exit(1);
+      return;
+    }
+    if (!options.apiType) {
+      console.log(colors.red('  API type not specified.'));
+      console.log();
+      process.exit(1);
+      return;
+    }
+    if (apiTypes.indexOf(options.apiType) === -1) {
+      console.log(colors.red(`  API type "${options.apiType}" is unknown.`));
+      console.log();
       process.exit(1);
       return;
     }
     try {
-      const script = new generator.JsonGenerator(raml, options);
+      const {JsonGenerator} = require('../lib/generate-json');
+      const script = new JsonGenerator(apiFile, {
+        apiType: options.apiType,
+        output: options.output,
+        prettyPrint: options.prettyPrint,
+        verbose: options.verbose
+      });
       script.run()
       .catch((cause) => {
         console.log(colors.red('  ' + cause.message));
@@ -46,9 +65,9 @@ program
   .on('--help', function() {
     console.log('\n\n  Examples:');
     console.log();
-    console.log('    $ api-console generate-json ./api.raml');
-    console.log('    $ api-console generate-json http://domain.com/api.raml');
-    console.log('    $ api-console generate-json ./api.raml -o "../api-data.json"');
+    console.log('    $ api-console generate-json -T "RAML 1.0" ./api.raml');
+    console.log('    $ api-console generate-json -T "OAS 2.0" http://domain.com/api.json');
+    console.log('    $ api-console generate-json -T "RAML 1.0" ./api.raml -o "../api-data.json"');
     console.log();
   })
   .parse(process.argv);

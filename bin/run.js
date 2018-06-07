@@ -11,11 +11,9 @@ program
   .version(packageJson.version)
   .description('API console tools')
   .command('build',
-    'Builds the API console application source code')
-  .command('generate-model -av RAML 1.0 <api-file>',
-    'Generates a JSON file from RAML spec that is used in the API console')
+    'Builds the API console application from the source code')
+  .command('generate-model -at RAML 1.0 <api-file>',
+    'Generates a JSON file from API spec file')
   .command('serve [path]',
     'Creates a www server to run the console locally')
-  .command('dev -av RAML 1.0 <api-file>',
-    'Displays API console while working on your API')
   .parse(process.argv);
