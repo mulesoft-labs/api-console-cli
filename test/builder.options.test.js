@@ -6,92 +6,52 @@ const {OptionsTestBuilder} = require('./options-test-builder');
 const fs = require('fs-extra');
 
 const API_URL = 'https://domain.com/api.raml';
-const LOCAL_API_URL = 'api.raml';
+const LOCAL_API_URL = 'test/api.raml';
+const API_TYPE = 'RAML 1.0';
 const OUTPUT_DIR = './test/some';
-const MAIN_FILE = 'imports.html';
-const COMPILATION_LEVEL = 'SIMPLE';
 const PROXY = 'http://proxy.org';
+const THEME_FILE = 'theme-file.html';
 
 describe('api-console-cli', () => {
   describe('Builder', () => {
-
     describe('Local API file', () => {
       describe('options validation for defaults', () => {
-        var options;
-        var build;
+        let options;
+        let build;
 
         before(function() {
-          var args = [];
-          args.push(LOCAL_API_URL);
-
+          const args = [];
           return OptionsTestBuilder.optionsForBuild(args)
           .then((opts) => {
-            build = new ApiBuild(LOCAL_API_URL, opts);
-            build.parseOptions();
-            options = build.moduleOptions;
+            build = new ApiBuild(opts);
+            options = build._prepareOptions(opts);
           });
         });
 
-        it('RAML file source is set', function() {
-          assert.equal(options.raml, LOCAL_API_URL);
-        });
-
-        it('The useJson should be changed to true', function() {
-          assert.isTrue(options.useJson);
-        });
-
-        it('The dest should not be undefined', function() {
-          assert.isUndefined(options.dest);
-        });
-
-        it('The mainFile should not be undefined', function() {
-          assert.isUndefined(options.mainFile);
-        });
-
-        it('The sourceIsZip should not be undefined', function() {
-          assert.isUndefined(options.sourceIsZip);
-        });
-
-        it('The inlineJson should not be undefined', function() {
-          assert.isUndefined(options.inlineJson);
-        });
-
-        it('The embedded should be not undefined', function() {
-          assert.isUndefined(options.embedded);
-        });
-
-        it('The jsCompilationLevel should not be undefined', function() {
-          assert.isUndefined(options.jsCompilationLevel);
-        });
-
-        it('The noOptimization should be not undefined', function() {
-          assert.isUndefined(options.noOptimization);
-        });
-
-        it('The noCssOptimization should not be set', function() {
-          assert.isUndefined(options.noCssOptimization);
-        });
-
-        it('The noHtmlOptimization should not be set', function() {
-          assert.isUndefined(options.noHtmlOptimization);
-        });
-
-        it('The noJsOptimization should not be set', function() {
-          assert.isUndefined(options.noJsOptimization);
-        });
-
-        it('The attributes should not be set', function() {
-          assert.isUndefined(options.attributes);
-        });
-
-        it('The tagVersion should not be set', function() {
-          assert.isUndefined(options.tagVersion);
+        [
+          'api',
+          'apiType',
+          'destination',
+          'embedded',
+          'attributes',
+          'tagName',
+          'themeFile',
+          'oauth',
+          'cryptoJs',
+          'jsPolyfills',
+          'xhr',
+          'webAnimations',
+          'cache'
+        ].forEach((item) => {
+          it(`Does not set ${item}`, function() {
+            assert.isUndefined(options[item]);
+          });
         });
       });
 
       describe('options validation for set values', () => {
-        var options;
-        var build;
+        let options;
+        let build;
 
         function findAttribute(name) {
           if (!options.attributes || !(options.attributes instanceof Array)) {
@@ -121,116 +81,102 @@ describe('api-console-cli', () => {
         }
 
         before(function() {
-          var args = [];
-          args.push(API_URL);
+          const args = [];
+          args.push('-a');
+          args.push(LOCAL_API_URL);
+          args.push('-t');
+          args.push(API_TYPE);
           args.push('--output');
           args.push(OUTPUT_DIR);
-          args.push('--main-file');
-          args.push(MAIN_FILE);
-          args.push('--source-is-zip');
-          args.push('--json');
-          args.push('--inline-json');
           args.push('--embedded');
-          args.push('--compilation-level');
-          args.push(COMPILATION_LEVEL);
-          args.push('--no-optimization');
-          args.push('--no-css-optimization');
-          args.push('--no-html-optimization');
-          args.push('--no-js-optimization');
-          args.push('-a');
+          args.push('--verbose');
+          args.push('--theme-file');
+          args.push(THEME_FILE);
+          args.push('--attr');
           args.push('proxy:' + PROXY);
-          args.push('-a');
+          args.push('--attr');
           args.push('narrow');
+          args.push('--no-oauth');
+          args.push('--no-crypto-js');
+          args.push('--no-js-polyfills');
+          args.push('--no-xhr');
+          args.push('--no-web-animations');
+          args.push('--no-cache');
           return OptionsTestBuilder.optionsForBuild(args)
           .then((opts) => {
             build = new ApiBuild(API_URL, opts);
-            build.parseOptions();
-            options = build.moduleOptions;
+            options = build._prepareOptions(opts);
           });
         });
 
-        it('RAML file source is set', function() {
-          assert.equal(options.raml, API_URL);
+        it('Sets API file location', function() {
+          assert.equal(options.api, LOCAL_API_URL);
         });
 
-        it('The useJson should be true', function() {
-          assert.isTrue(options.useJson);
+        it('Sets API type', function() {
+          assert.equal(options.apiType, API_TYPE);
         });
 
         it('The destination should be set', function() {
-          assert.equal(options.dest, OUTPUT_DIR);
+          assert.equal(options.destination, OUTPUT_DIR);
         });
 
-        it('The mainFile should be set', function() {
-          assert.equal(options.mainFile, MAIN_FILE);
+        it('Sets theme file', function() {
+          assert.equal(options.themeFile, THEME_FILE);
         });
 
-        it('The sourceIsZip should be true', function() {
-          assert.isTrue(options.sourceIsZip);
-        });
-
-        it('The inlineJson should be true', function() {
-          assert.isTrue(options.inlineJson);
-        });
-
-        it('The embedded should be true', function() {
-          assert.isTrue(options.embedded);
-        });
-
-        it('The jsCompilationLevel should equal ' + COMPILATION_LEVEL, function() {
-          assert.equal(options.jsCompilationLevel, COMPILATION_LEVEL);
-        });
-
-        it('The noOptimization should be true', function() {
-          assert.isTrue(options.noOptimization);
-        });
-
-        it('The noCssOptimization should be true', function() {
-          assert.isTrue(options.noCssOptimization);
-        });
-
-        it('The noHtmlOptimization should be true', function() {
-          assert.isTrue(options.noHtmlOptimization);
-        });
-
-        it('The noJsOptimization should be true', function() {
-          assert.isTrue(options.noJsOptimization);
+        [
+          'embedded',
+          'verbose',
+          'noOauth',
+          'noCryptoJs',
+          'noJsPolyfills',
+          'noXhr',
+          'noWebAnimations',
+          'noCache'
+        ].forEach((item) => {
+          it(`Sets ${item} to true`, function() {
+            assert.isTrue(options[item]);
+          });
         });
 
         it('Attribute with value should be set', function() {
-          var proxy = findAttribute('proxy');
+          const proxy = findAttribute('proxy');
           assert.ok(proxy);
         });
 
         it('Attribute\'s name should be set', function() {
-          var proxy = findAttribute('proxy');
+          const proxy = findAttribute('proxy');
           assert.equal(proxy.name, 'proxy');
         });
 
         it('Attribute\'s value should be set', function() {
-          var proxy = findAttribute('proxy');
+          const proxy = findAttribute('proxy');
           assert.equal(proxy.value, 'http://proxy.org');
         });
 
         it('Boolean attribute should be set', function() {
-          var narrow = findAttribute('narrow');
+          const narrow = findAttribute('narrow');
           assert.typeOf(narrow, 'string');
         });
       });
 
       describe('Performs the build', function() {
-        var build;
+        let build;
         before(function() {
-          var args = [];
-          args.push('test/api.raml');
+          const args = [];
+          args.push('-a');
+          args.push(LOCAL_API_URL);
+          args.push('-t');
+          args.push(API_TYPE);
+          args.push('-n');
+          args.push('5.0.0-preview');
           args.push('--output');
           args.push(OUTPUT_DIR);
-          args.push('--json');
-          args.push('--inline-json');
-          args.push('--no-optimization');
+          args.push('--verbose');
           return OptionsTestBuilder.optionsForBuild(args)
           .then((opts) => {
-            build = new ApiBuild('test/api.raml', opts);
+            build = new ApiBuild(opts);
           });
         });
 
@@ -239,7 +185,7 @@ describe('api-console-cli', () => {
         });
 
         it('Builds the console', function() {
-          this.timeout(270000);
+          this.timeout(300000);
           return build.run();
         });
       });

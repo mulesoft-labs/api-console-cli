@@ -1,150 +1,133 @@
 # api-console build command
 
-Builds the API Console for specific API definition. The build is optimized for production, meaning code bundling and minification.
+Builds the API Console for specific API definition, optimized for production.
 
 
 ## Basic usage
 
 ```
-$ api-console build <path or URL to raml file> [OPTIONS]
+$ api-console build [OPTIONS] -a <path or URL to raml/oas file> -t "API TYPE"
 ```
-
-## Command arguments
-
-### `<RAML>`
-
-Type: `String`
-
-**Required.**
-
-Path or URL to a main RAML file.
-
-Any RAML fragments (dependencies) referenced in the main RAML file has to be accessible for current user (either via local filesystem or on remote machine).
-
-The documentation displayed in the API Console will contain information from this RAML file(s).
 
 ## Command options
 
-#### -s, --source [value]
+#### -a, --api \[value\]
 
 Type: `String`
 
-Source of the API console to use. By default this will use latest release version. If set and the value is an URL, it must point to a zip file and will set the `--source-is-zip` option automatically. If points to a local path it can be either a folder with the API Console application or to zip file with the API Console sources. In later case you must set `--source-is-zip` option.
+Location to an API file to use to generate data model.
 
-#### -t, --tag
+#### -t, --api-type \[value\]
 
 Type: `String`
 
-Release tag name to use to build the console. To be used to build specific release of the console. Only versions >= 4.0.0.
+Type of the API file. One of:
 
-#### -o, --output [value]
+-   RAML 0.8
+-   RAML 1.0
+-   OAS 1.0
+-   OAS 2.0
+-   OAS 3.0
+
+#### -l, --local \[value\]
+
+Type: `String`
+
+Location of local sources of the API console to use with the build process.
+By default this will use latest released version from GitHub.
+
+#### -n, --tag-name
+
+Type: `String`
+
+Release tag name to use to build the console. To be used to build specific release of the console. Only versions >= 5.0.0.
+
+#### -o, --output \[value\]
 
 Type: `String`
 
 Output directory. Defaults to `./build`.
 
-#### -z, --source-is-zip
-
-Type: `Boolean`
-
-Set this option if the API console source (`--source`) points to a zip file that should be uncopressed. If the `--source` is an URL then it will be set automatically.
-
-#### -f, --main-file [value]
+#### --theme-file
 
 Type: `String`
 
-Source index file, an entry point to the application. Useful for custom builds, when you want to transform your application that is using the API Console to build your application.
-
-Don't set it when downloading the API Console source code from GitHub. Then it will use one of the build-in templates depending on other options. Should point to a file that contains web components imports.
-
-##### Example
-
-```
-$ api-console build --main-file imports.html
-```
-
-This command assumes that all API Console imports are located in `imports.html` file. Built `imports.html` file should be included in your application using `<link ref="import">` directive.
-
-#### -j, --json
-
-Type: `Boolean`
-
-One of the optimization options. If set, it will generate a JSON file out of the RAML file and will use this pre-generated data as a source in the console.
-
-Use this option to optimize console's load time. It will not include RAML parser and JSON transformer into the build and will use pre-generated JSON to load it into the console. Note that you will have to regenerate the JSON file  each time your API spec changes to reflect the changes.
-
-Generated file will be always named `api.json` file. This may change in the future.
-
-#### -i, --inline-json
-
-Type: `Boolean`
-
-One of the optimization options. Set to inline pre-generated JSON data (with `--json` option) in the main file instead of creating external JSON file.
-
-It is only valid if `--embedded` is not set. Embedded version of the API console always require external JSON file (subject to change).
+Location of a theme file that should replace console's default theme.
 
 #### -e, --embedded
 
 Type: `Boolean`
 
-If set it will generate an import file, `import.html`, that will contain bundled API Console. This file can be used in any web application via `<link ref="import">` directive.
+Creates a bundles of the API console to be imported into your website. When
+the console is included into the website it can be used as a HTML element.
 
-Generated sources will contain an example of use of the `api-console` HTML element on any web page.
-
-#### -l, --compilation-level [value]
-
-Type: `String`
-
-Default: `WHITESPACE_ONLY`
-
-Possible values:
-- WHITESPACE_ONLY
-- SIMPLE
-
-Level of JavaScript compilation used by [Google Closure Compiler](https://developers.google.com/closure/compiler/). Possible options are `WHITESPACE_ONLY` and `SIMPLE`.
-
-**Please, do not use `ADVANCED` level.**
-
-Option `SIMPLE` will make the build process longer than WHITESPACE_ONLY but it will produce less code. Defaults to `WHITESPACE_ONLY`
-
-#### --no-optimization
+#### --no-oauth
 
 Type: `Boolean`
 
-If set it will not perform any code optimization. It will disable:
-- comments removal
-- JS compilation
-- HTML minification
-- CSS minification
+Use it when you know what you are doing. Prohibits including ARC OAuth library
+to the build to reduce build size. It's to be used if the app already support
+OAuth authorization and can handle API console's OAuth events.
 
-It should be used only for development to reduce build time. Output will contain more data and therefore will be bigger.
+This option is ignored when `embedded` is set.
 
-This command equals setting `--no-css-optimization`, `--no-html-optimization`, and `--no-js-optimization` all together.
-
-#### --no-css-optimization
+#### no-crypto-js
 
 Type: `Boolean`
 
-Disables CSS minification (CSS files and `<style>` declarations).
+Use it when you know what you are doing. Prohibits including CryptoJs library into
+the build. Use this option if you embedding the console on a website that already
+uses CryptoJs library.
 
+This option is ignored when `embedded` is set.
 
-#### --no-html-optimization
-
-Type: `Boolean`
-
-Disables HTML minification. Also disables comments removal.
-
-#### --no-js-optimization
+#### no-js-polyfills
 
 Type: `Boolean`
 
-Disables JavaScript compilation with Google Closure Compiler.
+Prohibits including JS polyfills (for Array class in most cases and for Polyfills).
+If you targeting only modern browsers you may want to use this option.
+Polyfills are never included into `es6-bundle` build.
+
+This option is ignored when `embedded` is set.
+
+#### no-xhr
+
+Type: `Boolean`
+
+Prohibits including XHR component into the build. If your application is planning
+to handle `api-request` and `api-response` custom events then set this option to
+reduce size of the bundle.
+
+This option is ignored when `embedded` is set.
+
+#### no-web-animations
+
+Type: `Boolean`
+
+Right no there's no browser that support Web Animations specification natively
+so don't use it.
+When set, web animations polyfill is not included into the build.
+
+This option is ignored when `embedded` is set.
+
+#### no-cache
+
+Type: `Boolean`
+
+To speed up the build process the module caches build result by default so next
+build will result with restoring cached data (API data model is always regenerated).
+
+To prevent the module from using cached file, set this option and the build is
+always performed from latest sources.
 
 #### -a, --arguments
 
 Type: `String`
 
 List of attributes to set on the console. For attributes with values set value after a colon (:).
+
+This options is valid only if `embedded` is not set.
 
 ##### Examples
 

@@ -1,7 +1,7 @@
 {
   "main": "Use this command to build a production ready API Console that can be hosted on any server or used as a HTML element",
   "output": "Output location of bundled API Console. Default to \"./build\".",
-  "source": "Path or URL to API console source. By default it will be latest release from GitHub. Can point to a local directory or a zip file.",
+  "local": "Path or URL to API console source. By default it will be latest release from GitHub. Can point to a local directory or a zip file.",
   "embedded": "Generate separate import file for the conole's source code. The Console can then be used as a HTML element",
   "attributes": "List of attributes to set on the console. For attributes with values set value after a colon (:).",
   "tagName": "Release tag name to use to build the console. To be used to build specific release of the console. Only versions >= 5.0.0",
@@ -12,5 +12,6 @@
   "noJsPolyfills": "Embedded build only. ES6 polyfills are not included into the build. This is always not included intop es6-bundle",
   "noXhr": "Embedded build only. API console HTTP transport library is not included",
   "noWebAnimations": "Embedded build only. Currentlty do not use this option. Web animations library is not included into the build",
+  "noCache": "Always generate new version of the console, event if a build is cached",
   "themeFile": "Replaces default API console theme file with custom version"
 }

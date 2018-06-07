@@ -10,35 +10,35 @@ $ api-console generate-json <path or URL to raml file> [OPTIONS]
 
 ## Command arguments
 
-### `<RAML>`
+### `<api-file>`
 
 Type: `String`
 
 **Required.**
 
-Path or URL to a main RAML file.
-
-Any RAML fragments (dependencies) referenced in the main RAML file has to be accessible for current user (either via local filesystem or on remote machine).
-
-The documentation displayed in the API Console will contain information from this RAML file(s).
+Path or URL to an API spec file file.
 
 ## Command options
 
-#### -o, --output [value]
+#### -t, --type \[value\]
+
+Type: `String`
+
+Type of the API file. One of:
+
+-   RAML 0.8
+-   RAML 1.0
+-   OAS 1.0
+-   OAS 2.0
+-   OAS 3.0
+
+#### -o, --output \[value\]
 
 Type: `String`
 
 Default: `api.json`
 
 Generated JSON file path.
-
-
-#### -p, --pretty-print
-
-Type: `String`
-
-Generated JSON in the output file will be formatted.
-Note that this will increase build file size.
 
 #### `--verbose`
 

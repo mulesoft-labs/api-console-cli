@@ -8,9 +8,9 @@ const apiTypes = ['RAML 0.8', 'RAML 1.0', 'OAS 1.0', 'OAS 2.0', 'OAS 3.0'];
 
 program
   .arguments('<api-file>', 'Path to the API spec file. Can be an URL.')
-  .usage('\n\n  $ api-console generate-json [options] -T "RAML 1.0" <api-file>')
+  .usage('\n\n  $ api-console generate-json [options] -t "RAML 1.0" <api-file>')
   .description(desc)
-  .option('-T, --api-type [value]', 'API type, can be on of "' + apiTypes.join('", "') + '"')
+  .option('-t, --api-type [value]', 'API type, can be on of "' + apiTypes.join('", "') + '"')
   .option('-o, --output [value]', 'Output file. Default to "./api-model.json"')
   .option('-p, --pretty-print', 'Generated JSON will be formatted')
   .option('--verbose', 'Print verbose messages')
@@ -65,9 +65,9 @@ program
   .on('--help', function() {
     console.log('\n\n  Examples:');
     console.log();
-    console.log('    $ api-console generate-json -T "RAML 1.0" ./api.raml');
-    console.log('    $ api-console generate-json -T "OAS 2.0" http://domain.com/api.json');
-    console.log('    $ api-console generate-json -T "RAML 1.0" ./api.raml -o "../api-data.json"');
+    console.log('    $ api-console generate-json -t "RAML 1.0" ./api.raml');
+    console.log('    $ api-console generate-json -t "OAS 2.0" http://domain.com/api.json');
+    console.log('    $ api-console generate-json -t "RAML 1.0" ./api.raml -o "../api-data.json"');
     console.log();
   })
   .parse(process.argv);

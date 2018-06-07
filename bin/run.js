@@ -12,7 +12,7 @@ program
   .description('API console tools')
   .command('build',
     'Builds the API console application from the source code')
-  .command('generate-model -at RAML 1.0 <api-file>',
+  .command('generate-model -T RAML 1.0 <api-file>',
     'Generates a JSON file from API spec file')
   .command('serve [path]',
     'Creates a www server to run the console locally')

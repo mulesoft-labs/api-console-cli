@@ -26,18 +26,15 @@
   "dependencies": {
     "amf-client-js": "^1.4.0-31",
     "api-console-builder": "github:mulesoft-labs/api-console-builder#stable-release",
-    "colors": "^1.1.2",
-    "commander": "^2.12.2",
-    "decomment": "^0.9.1",
-    "del": "^2.2.2",
-    "glob": "^7.1.2",
+    "colors": "^1.3.0",
+    "commander": "^2.15.1",
     "polyserve": "^0.27.11",
-    "semver": "^5.3.0",
+    "semver": "^5.5.0",
     "update-notifier": "^2.5.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "fs-extra": "^4.0.2",
+    "fs-extra": "^4.0.3",
     "mocha": "^5.2.0"
   },
   "bin": {
