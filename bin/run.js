@@ -10,12 +10,10 @@ updateNotifier({pkg: packageJson}).notify();
 program
   .version(packageJson.version)
   .description('API console tools')
-  .command('build <raml>',
-    'Builds the API console application source code for given RAML file.')
-  .command('generate-json <raml>',
-    'Generates a JSON file from RAML spec that is used in the API console')
+  .command('build',
+    'Builds the API console application from the source code')
+  .command('generate-model -T RAML 1.0 <api-file>',
+    'Generates a JSON file from API spec file')
   .command('serve [path]',
     'Creates a www server to run the console locally')
-  .command('dev <raml>',
-    'Displays API console while working on RAML sources')
   .parse(process.argv);

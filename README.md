@@ -2,12 +2,14 @@
 
 The command-line tool for the API Console Web Component.
 
+Note: __This version does not work with API console version 4__. To build this version use
+api-console-cli before version 1.0.0.
+
 ## Features
 
--   **build** - Build the api console application optimized for production
--   **generate-json** - Regenerates the JSON file that can be used as a data source in the Console
--   **serve** - Creates a http server on local machine and serves content of current folder.
--   **dev** - Observes a directory with the API spec and runs the API console preview. Refreshes the API data when a file in the directory change.
+-   __build__ - Build the api console application optimized for production
+-   __generate-json__ - Regenerates the JSON file that can be used as a data source in the Console
+-   __serve__ - Creates a http server on local machine and serves content of current folder.
 
 ## Installation
 
@@ -21,11 +23,11 @@ $ npm install -g api-console-cli
 
 Run `api-console --help` to get a list of supported commands. Pass it a command name (ex: `api-console build --help`) to get detailed information about that command and the options it supports.
 
-### `api-console build <RAML PATH> [options]`
+### `api-console build [options] -a path/to/api.raml -t "RAML 1.0"`
 
 Builds the API Console for specific API definition. The build is optimized for production, meaning code bundling and minification.
 
-Most optimizations are enabled by default. You can disable optimization for minification of html, CSS and JS respectively or disable any optimization at all.
+By default this tool support RAML and OAS.
 
 Run `api-console build --help` for the full list of available options & optimizations.
 
@@ -46,12 +48,6 @@ Detailed description of all options you can find here: [api-console generate-jso
 Runs a local web server serving a content of the current directory or selected path.
 
 Detailed description of all options you can find here: [api-console serve doc](docs/api-console-serve.md)
-
-### `api-console dev [options] <raml>`
-
-Runs a local web server serving a content of the current directory or selected path and observers for changes to any of the project files. When change occur it updates API console data.
-
-Detailed description of all options you can find here: [api-console dev doc](docs/api-console-dev.md)
 
 ## Contribution
 

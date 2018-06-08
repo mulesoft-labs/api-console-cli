@@ -4,10 +4,10 @@ function collectArguments(val, memo) {
   if (!val) {
     return;
   }
-  var index = val.indexOf(':');
+  const index = val.indexOf(':');
   if (index !== -1) {
-    let name = val.substr(0, index);
-    let value = val.substr(index + 1);
+    const name = val.substr(0, index);
+    const value = val.substr(index + 1);
     val = {};
     val[name] = value;
   }
@@ -21,7 +21,7 @@ class OptionsTestBuilder {
     if (typeof args === 'string') {
       args = args.split(' ');
     }
-    var result = [];
+    let result = [];
     result.push(process.argv[0]);
     result.push(__filename);
     result = result.concat(args);
@@ -31,28 +31,25 @@ class OptionsTestBuilder {
   static optionsForBuild(args) {
     return new Promise((resolve) => {
       args = OptionsTestBuilder.parseArgs(args);
-      var program = new Command();
+      const program = new Command();
       program
-        .arguments('<raml>')
         .option('-o, --output [path]')
-        .option('-s, --source [path]')
-        .option('-t, --tag [version]')
-        .option('-f, --main-file [path]')
-        .option('-z, --source-is-zip')
-        .option('-j, --json')
-        .option('-i, --inline-json')
+        .option('-l, --local [path]')
+        .option('-n, --tag-name [version]')
+        .option('-a, --api [path]')
+        .option('-t, --api-type [type]')
+        .option('--theme-file [path]')
+        .option('--attr, --attributes [name]:<value>', '', collectArguments, [])
         .option('-e, --embedded')
-        .option('-l, --compilation-level [level]')
-        .option('-a, --attributes [name]:<value>', '', collectArguments, [])
-        .option('--no-optimization')
-        .option('--no-css-optimization')
-        .option('--no-html-optimization')
-        .option('--no-js-optimization')
-        .option('--verbose', 'Print verbose messages.')
-        .action((raml, options) => {
-          resolve(options);
-        })
+        .option('--no-oauth')
+        .option('--no-crypto-js')
+        .option('--no-js-polyfills')
+        .option('--no-xhr')
+        .option('--no-web-animations')
+        .option('--no-cache')
+        .option('--verbose')
         .parse(args);
+      resolve(program);
     });
   }
 }

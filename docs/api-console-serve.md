@@ -24,26 +24,26 @@ It should point to a build folder if the build folder is not current directory.
 
 ## Command options
 
-#### -r, --root [value]
+#### -r, --root \[value\]
 
 Type: `String`
 
-The same as passing [path] argument.
-This value (as an argument) takes precedence over the [path] value.
+The same as passing \[path\] argument.
+This value (as an argument) takes precedence over the \[path\] value.
 
-#### -e, --entrypoint [value]
+#### -e, --entrypoint \[value\]
 
 Type: `String`
 
 The path on disk of the entry point HTML file that will be served. Must be contained by `root`. Defaults to `index.html`.
 
-#### -p, --port [value]
+#### -p, --port \[value\]
 
 Type: `Number`
 
 The port to serve from
 
-#### -H, --hostname [value]
+#### -H, --hostname \[value\]
 
 Type: `String`
 
@@ -79,7 +79,7 @@ The URL path to open in each browser
 
 Type: `String`
 
-The protocol, choice of [http, https], defaults to http
+The protocol, choice of \[http, https\], defaults to http
 
 #### `-k, --keyPath [value]`
 
