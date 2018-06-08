@@ -185,7 +185,7 @@ describe('api-console-cli', () => {
         });
 
         it('Builds the console', function() {
-          this.timeout(300000);
+          this.timeout(500000);
           return build.run();
         });
       });
