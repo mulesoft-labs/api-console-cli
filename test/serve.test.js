@@ -6,9 +6,8 @@ const assert = require('chai').assert;
 describe('api-console-cli', () => {
   describe('ApiServe', () => {
     describe('_applyOpts()', () => {
-
-      const args = ['root', 'entrypoint', 'port', 'hostname', 'open', 'openPath'];
-
+      const args = ['root', 'entrypoint', 'port', 'hostname',
+      'open', 'openPath'];
       args.forEach((argument) => {
         it(`Sets ${argument} from option argument`, function() {
           const opts = {};
