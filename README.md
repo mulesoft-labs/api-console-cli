@@ -2,8 +2,19 @@
 
 The command-line tool for the API Console Web Component.
 
-Note: __This version does not work with API console version 4__. To build this version use
-api-console-cli before version 1.0.0.
+![Warning][warning] ![Warning][warning] ![Warning][warning] ![Warning][warning]
+
+Note: __This version does not work with API console version 4__.
+
+This CLI tool works with version 5 which is still in preview.
+
+Please, use version [0.2.12](https://github.com/mulesoft-labs/api-console-cli/tree/0.2.x).
+
+```
+$ npm install -g api-console-cli@0.2.12
+```
+
+![Warning][warning] ![Warning][warning] ![Warning][warning] ![Warning][warning]
 
 ## Features
 
@@ -52,3 +63,5 @@ Detailed description of all options you can find here: [api-console serve doc](d
 ## Contribution
 
 Your feedback is welcome. If you need support for a method, command options other than described here please, file a feature request. If you find a bug, please, file a bug report with details so we can fix it.
+
+[warning]: docs/warning-icon.png "Warning"
