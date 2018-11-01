@@ -36,6 +36,8 @@ Run `api-console --help` to get a list of supported commands. Pass it a command 
 
 ### `api-console build [options] -a path/to/api.raml -t "RAML 1.0"`
 
+__NOTE__ until API console version 5 is in preview add `-n "5.0.0-preview-1"` to the command to install preview version.
+
 Builds the API Console for specific API definition. The build is optimized for production, meaning code bundling and minification.
 
 By default this tool support RAML and OAS.

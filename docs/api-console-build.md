@@ -5,6 +5,11 @@ Builds the API Console for specific API definition, optimized for production.
 
 ## Basic usage
 
+__Preview notice__
+
+API console version 5 is in preview. Because of that the sources resolution won't find
+the package until specific tag is provided. To build the console always add `-n "5.0.0-preview-1"` to the command.
+
 ```
 $ api-console build [OPTIONS] -a <path or URL to raml/oas file> -t "API TYPE"
 ```
