@@ -4,10 +4,8 @@ process.title = 'api-console serve';
 
 const program = require('commander');
 const colors = require('colors/safe');
-const {
-  ApiServe
-} = require('../lib/serve');
-var docs = require('./serve-help.json');
+const {ApiServe} = require('../lib/serve');
+const docs = require('./serve-help.json');
 
 function collect(val, memo) {
   memo.push(val);

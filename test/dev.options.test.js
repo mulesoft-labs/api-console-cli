@@ -3,7 +3,6 @@
 const {ApiDev} = require('../lib/dev');
 const assert = require('chai').assert;
 const {OptionsTestDev} = require('./options-test-dev');
-const path = require('path');
 
 const API_FILE = 'test-api.raml';
 const PROJECT_ROOT = '../';
@@ -15,11 +14,11 @@ const TAG_VERSION = 'v4.0.0-test';
 describe('api-console-cli', () => {
   describe('Dev', () => {
     describe('options validation for defaults', () => {
-      var options;
-      var build;
+      let options;
+      let build;
 
       before(function() {
-        var args = [];
+        let args = [];
         args.push(API_FILE);
 
         return OptionsTestDev.optionsForBuild(args)
@@ -68,11 +67,11 @@ describe('api-console-cli', () => {
     });
 
     describe('options validation for set values', () => {
-      var options;
-      var build;
+      let options;
+      let build;
 
       before(function() {
-        var args = [];
+        const args = [];
         args.push('--project-root');
         args.push(PROJECT_ROOT);
         args.push('--host');
@@ -128,8 +127,8 @@ describe('api-console-cli', () => {
     });
 
     describe('options validation for sources options', () => {
-      var baseArgs = [API_FILE];
-      var build;
+      let baseArgs = [API_FILE];
+      let build;
 
       it('Source is set', function() {
         const args = Array.from(baseArgs);
@@ -171,7 +170,7 @@ describe('api-console-cli', () => {
   });
 
   describe('validation errors', () => {
-    var build;
+    let build;
     it('Throws for remote RAML file', function() {
       const args = ['https://domain.com/api.raml'];
       return OptionsTestDev.optionsForBuild(args)
@@ -225,7 +224,7 @@ describe('api-console-cli', () => {
   });
 
   // describe('Builds dev version', () => {
-  //   var build;
+  //   let build;
   //   before(function() {
   //     const projectRoot = path.join(__dirname, '..');
   //     build = new ApiDev('test/api.raml', {

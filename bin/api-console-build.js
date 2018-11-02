@@ -5,13 +5,13 @@ process.title = 'api-console build';
 const program = require('commander');
 const colors = require('colors/safe');
 const {ApiBuild} = require('../lib/build');
-var docs = require('./build-help.json');
+const docs = require('./build-help.json');
 
 function collectArguments(val, memo) {
   if (!val) {
     return;
   }
-  var index = val.indexOf(':');
+  const index = val.indexOf(':');
   if (index !== -1) {
     let name = val.substr(0, index);
     let value = val.substr(index + 1);

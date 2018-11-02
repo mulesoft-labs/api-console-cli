@@ -14,14 +14,13 @@ const PROXY = 'http://proxy.org';
 
 describe('api-console-cli', () => {
   describe('Builder', () => {
-
     describe('Local API file', () => {
       describe('options validation for defaults', () => {
-        var options;
-        var build;
+        let options;
+        let build;
 
         before(function() {
-          var args = [];
+          const args = [];
           args.push(LOCAL_API_URL);
 
           return OptionsTestBuilder.optionsForBuild(args)
@@ -90,8 +89,8 @@ describe('api-console-cli', () => {
       });
 
       describe('options validation for set values', () => {
-        var options;
-        var build;
+        let options;
+        let build;
 
         function findAttribute(name) {
           if (!options.attributes || !(options.attributes instanceof Array)) {
@@ -121,7 +120,7 @@ describe('api-console-cli', () => {
         }
 
         before(function() {
-          var args = [];
+          const args = [];
           args.push(API_URL);
           args.push('--output');
           args.push(OUTPUT_DIR);
@@ -198,36 +197,37 @@ describe('api-console-cli', () => {
         });
 
         it('Attribute with value should be set', function() {
-          var proxy = findAttribute('proxy');
+          const proxy = findAttribute('proxy');
           assert.ok(proxy);
         });
 
         it('Attribute\'s name should be set', function() {
-          var proxy = findAttribute('proxy');
+          const proxy = findAttribute('proxy');
           assert.equal(proxy.name, 'proxy');
         });
 
         it('Attribute\'s value should be set', function() {
-          var proxy = findAttribute('proxy');
+          const proxy = findAttribute('proxy');
           assert.equal(proxy.value, 'http://proxy.org');
         });
 
         it('Boolean attribute should be set', function() {
-          var narrow = findAttribute('narrow');
+          const narrow = findAttribute('narrow');
           assert.typeOf(narrow, 'string');
         });
       });
 
       describe('Performs the build', function() {
-        var build;
+        let build;
         before(function() {
-          var args = [];
+          let args = [];
           args.push('test/api.raml');
           args.push('--output');
           args.push(OUTPUT_DIR);
           args.push('--json');
           args.push('--inline-json');
           args.push('--no-optimization');
+          args.push('--verbose');
           return OptionsTestBuilder.optionsForBuild(args)
           .then((opts) => {
             build = new ApiBuild('test/api.raml', opts);

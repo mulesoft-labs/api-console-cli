@@ -4,7 +4,7 @@ const program = require('commander');
 const colors = require('colors/safe');
 const generator = require('../lib/generate-json');
 
-var desc = 'Use this command to create a JSON file that is recognizable by the API console ';
+let desc = 'Use this command to create a JSON file that is recognizable by the API console ';
 desc += 'and its components.\n  You can use the file to optimise loading time of the API console.';
 
 program

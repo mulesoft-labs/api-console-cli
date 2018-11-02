@@ -5,7 +5,7 @@ process.title = 'api-console dev';
 const program = require('commander');
 const colors = require('colors/safe');
 const {ApiDev} = require('../lib/dev');
-var docs = require('./dev-help.json');
+const docs = require('./dev-help.json');
 
 program
   .arguments('<raml>')
