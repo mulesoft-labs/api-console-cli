@@ -2,6 +2,8 @@
 
 The command-line tool for the API Console Web Component.
 
+Note, this version works with API console version 4.x.x only.
+
 ## Features
 
 -   **build** - Build the api console application optimized for production
