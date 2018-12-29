@@ -170,7 +170,7 @@ describe('api-console-cli', () => {
           args.push('-t');
           args.push(API_TYPE);
           args.push('-n');
-          args.push('5.0.0-preview');
+          args.push('5.0.0-preview-1');
           args.push('--output');
           args.push(OUTPUT_DIR);
           args.push('--verbose');
