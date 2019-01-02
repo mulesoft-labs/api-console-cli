@@ -67,3 +67,10 @@ Detailed description of all options you can find here: [api-console serve doc](d
 Your feedback is welcome. If you need support for a method, command options other than described here please, file a feature request. If you find a bug, please, file a bug report with details so we can fix it.
 
 [warning]: docs/warning-icon.png "Warning"
+
+## Google Analytics tracking
+
+This CLI tool will ask you if you allow to send anonymous data to Google Analytics. This allows us to see how the tool is used and improve your experience in the future (by, for example, providing better default options).
+None of your data are sent to the analytics server. You can check collected data in source files.
+
+You can always say no when asked to share the data or pass `--no-ga` argument when executing the command. The tool detects CI environment and skips any GA questions or tracking. If the build fails due the question pass the `--no-ga` option.

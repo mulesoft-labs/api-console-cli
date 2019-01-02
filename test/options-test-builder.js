@@ -48,6 +48,7 @@ class OptionsTestBuilder {
         .option('--no-web-animations')
         .option('--no-cache')
         .option('--verbose')
+        .option('--no-ga')
         .parse(args);
       resolve(program);
     });

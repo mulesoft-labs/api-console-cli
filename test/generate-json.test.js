@@ -32,7 +32,8 @@ describe('JsonGenerator', function() {
       const generator = new JsonGenerator('test/test-apis/' + item[1], {
         apiType: item[0],
         output,
-        verbose: true
+        verbose: true,
+        ga: false
       });
       return generator.run()
       .then(() => fs.readJson(output))

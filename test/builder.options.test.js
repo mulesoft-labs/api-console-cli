@@ -174,6 +174,7 @@ describe('api-console-cli', () => {
           args.push('--output');
           args.push(OUTPUT_DIR);
           args.push('--verbose');
+          args.push('--no-ga');
           return OptionsTestBuilder.optionsForBuild(args)
           .then((opts) => {
             build = new ApiBuild(opts);
