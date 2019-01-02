@@ -28,6 +28,7 @@ program
   .option('-n, --tag-name [version]', docs.tagName)
   .option('-a, --api [path]', docs.api)
   .option('-t, --api-type [type]', docs.apiType)
+  .option('-m, --api-media-type [type]', docs.apiMediaType)
   .option('--theme-file [path]', docs.themeFile)
   .option('--attr, --attributes [name]:<value>', docs.attributes, collectArguments, [])
   .option('-e, --embedded', docs.embedded)

@@ -8,6 +8,7 @@ const fs = require('fs-extra');
 const API_URL = 'https://domain.com/api.raml';
 const LOCAL_API_URL = 'test/api.raml';
 const API_TYPE = 'RAML 1.0';
+const API_MEDIA_TYPE = 'application/yaml';
 const OUTPUT_DIR = './test/some';
 const PROXY = 'http://proxy.org';
 const THEME_FILE = 'theme-file.html';
@@ -31,6 +32,7 @@ describe('api-console-cli', () => {
         [
           'api',
           'apiType',
+          'apiMediaType',
           'destination',
           'embedded',
           'attributes',
@@ -86,6 +88,8 @@ describe('api-console-cli', () => {
           args.push(LOCAL_API_URL);
           args.push('-t');
           args.push(API_TYPE);
+          args.push('-m');
+          args.push(API_MEDIA_TYPE);
           args.push('--output');
           args.push(OUTPUT_DIR);
           args.push('--embedded');
@@ -115,6 +119,10 @@ describe('api-console-cli', () => {
 
         it('Sets API type', function() {
           assert.equal(options.apiType, API_TYPE);
+        });
+
+        it('Sets API media type', function() {
+          assert.equal(options.apiMediaType, API_MEDIA_TYPE);
         });
 
         it('The destination should be set', function() {
@@ -169,6 +177,8 @@ describe('api-console-cli', () => {
           args.push(LOCAL_API_URL);
           args.push('-t');
           args.push(API_TYPE);
+          args.push('-m');
+          args.push(API_MEDIA_TYPE);
           args.push('-n');
           args.push('5.0.0-preview-1');
           args.push('--output');

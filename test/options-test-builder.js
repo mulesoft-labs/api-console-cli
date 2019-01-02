@@ -16,7 +16,6 @@ function collectArguments(val, memo) {
 }
 
 class OptionsTestBuilder {
-
   static parseArgs(args) {
     if (typeof args === 'string') {
       args = args.split(' ');
@@ -38,6 +37,7 @@ class OptionsTestBuilder {
         .option('-n, --tag-name [version]')
         .option('-a, --api [path]')
         .option('-t, --api-type [type]')
+        .option('-m, --api-media-type [type]')
         .option('--theme-file [path]')
         .option('--attr, --attributes [name]:<value>', '', collectArguments, [])
         .option('-e, --embedded')
