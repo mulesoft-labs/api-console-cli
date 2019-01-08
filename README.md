@@ -30,9 +30,17 @@ $ npm install -g api-console-cli
 
 ## Command Overview
 
-### `api-console [COMMAND] --help`
+### General options
+
+#### `api-console [COMMAND] --help`
 
 Run `api-console --help` to get a list of supported commands. Pass it a command name (ex: `api-console build --help`) to get detailed information about that command and the options it supports.
+
+#### `api-console [COMMAND] [--options] --no-ga`
+
+Disables Google Analytics and asking to enable Google Analytics. Should be used in automated environment. The library detects most common CI environments.
+
+## Commands
 
 ### `api-console build [options] -a path/to/api.raml -t "RAML 1.0"`
 

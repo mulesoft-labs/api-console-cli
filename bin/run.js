@@ -16,4 +16,5 @@ program
     'Generates a JSON file from API spec file')
   .command('serve [path]',
     'Creates a www server to run the console locally')
+  .option('--no-ga', 'Disable Google Analytics when running any command')
   .parse(process.argv);

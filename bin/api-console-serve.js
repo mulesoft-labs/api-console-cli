@@ -26,7 +26,7 @@ program
   .option('-P, --protocol [value]', docs.protocol)
   .option('-k, --key-path [value]', docs.keyPath)
   .option('-c, --cert-path [value]', docs.certPath)
-  .option('--no-ga', 'Disallow Google Analytics when running this command')
+  .option('--no-ga', docs.noGa)
   .on('--help', function() {
     console.log('\n\n  Examples:');
     console.log();

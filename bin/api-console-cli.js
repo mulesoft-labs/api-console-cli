@@ -1,9 +1,6 @@
 #!/usr/bin/env node
-
 'use strict';
-
 process.title = 'api-console';
-
 const semver = require('semver');
 // Early exit if the user's node version is too low.
 if (!semver.satisfies(process.version, '>=6.4')) {
@@ -16,46 +13,110 @@ if (!semver.satisfies(process.version, '>=6.4')) {
   process.exit(1);
 }
 
-function isCi() {
-  const env = process.env;
-  return !!(env.CI ||
-  env.CONTINUOUS_INTEGRATION ||
-  env.BUILD_NUMBER ||
-  env.RUN_ID ||
-  exports.name ||
-  false);
-}
-
-const noGa = process.argv.indexOf('--no-ga') !== -1;
-
-function run() {
-  require('./run');
-}
-
-if (noGa) {
-  run();
-} else {
-  const {GaHelper} = require('../lib/ga-helper');
-  const helper = new GaHelper();
-  helper.gaAllowed()
-  .then((allowed) => {
-    if (allowed === undefined) {
-      if (isCi()) {
-        run();
-        return;
-      }
-      const inquirer = require('inquirer');
-      inquirer
-      .prompt([{
-        type: 'confirm',
-        name: 'gaEnabled',
-        message: 'Allow anonymous usage statistics to help improve our CLI tools?',
-        default: true
-      }])
-      .then((answer) => helper.updatePermissions(answer.gaEnabled))
-      .then(() => run());
-    } else {
-      run();
+const fs = require('fs-extra');
+const path = require('path');
+const {GaHelper} = require('../lib/ga-helper');
+class ApiConsoleCli {
+  /**
+   * Tests if current environment is CI environment.
+   * @return {Boolean}
+   */
+  get isCi() {
+    const env = process.env;
+    const exists = fs.pathExistsSync(path.join('/', '.dockerenv'));
+    return !!(exists || env.CI || env.CONTINUOUS_INTEGRATION ||
+      env.BUILD_NUMBER || env.RUN_ID || exports.name || false);
+  }
+  /**
+   * Tests if Google Analytics should not be allowed when running the command.
+   * This includes GA question.
+   * @return {Boolean} True when GA command cannot run.
+   */
+  get noGa() {
+    return process.argv.indexOf('--no-ga') !== -1 || process.argv.indexOf('--help') !== -1;
+  }
+  /**
+   * Runs the CLI command.
+   *
+   * @return {Promise}
+   */
+  runCommand() {
+    if (this.running) {
+      return;
     }
-  });
+    this.running = true;
+    require('./run');
+    return Promise.resolve();
+  }
+  /**
+   * Initializes the library.
+   * @return {Promise}
+   */
+  init() {
+    if (this.noGa || this.isCi) {
+      return this.runCommand();
+    }
+    return this._initGa();
+  }
+  /**
+   * Initializes GA configuration.
+   * Asks the user to allows GA when configuration is missing.
+   * @return {Promise}
+   */
+  _initGa() {
+    this.helper = new GaHelper();
+    return this.helper.gaAllowed()
+    .then((allowed) => this._processGaAllowed(allowed));
+  }
+  /**
+   * Runs instructions after reading the configuration.
+   * @param {?Boolean} allowed Optional, state of GA enabled flag.
+   * @return {Promise}
+   */
+  _processGaAllowed(allowed) {
+    if (typeof allowed === 'boolean') {
+      return this.runCommand();
+    }
+    return this._askUser();
+  }
+  /**
+   * Asks the user to enable GA, saves the answer, and runs the command.
+   * The question is dissmissed after about 10s.
+   *
+   * @return {Promise}
+   */
+  _askUser() {
+    this.queryTimeout = setTimeout(() => {
+      this.queryTimeout = undefined;
+      this.runCommand();
+      return;
+    }, 10000);
+    return this._getAnswer()
+    .then((answer) => this._processAnswer(answer))
+    .then(() => this.runCommand())
+    .catch(() => {});
+  }
+
+  _getAnswer() {
+    const inquirer = require('inquirer');
+    return inquirer
+    .prompt([{
+      type: 'confirm',
+      name: 'gaEnabled',
+      message: 'Allow anonymous usage statistics to help improve our CLI tools?',
+      default: true
+    }]);
+  }
+
+  _processAnswer(answer) {
+    if (!this.queryTimeout) {
+      throw new Error('Timed out');
+    }
+    clearTimeout(this.queryTimeout);
+    this.queryTimeout = undefined;
+    return this.helper.updatePermissions(answer.gaEnabled);
+  }
 }
+
+const cli = new ApiConsoleCli();
+cli.init();

@@ -14,5 +14,6 @@
   "noXhr": "Embedded build only. API console HTTP transport library is not included",
   "noWebAnimations": "Embedded build only. Currentlty do not use this option. Web animations library is not included into the build",
   "noCache": "Always generate new version of the console, event if a build is cached",
-  "themeFile": "Replaces default API console theme file with custom version"
+  "themeFile": "Replaces default API console theme file with custom version",
+  "noGa": "Disable Google Analytics when running any command"
 }

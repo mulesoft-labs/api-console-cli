@@ -10,5 +10,6 @@
   "openPath": "The URL path to open in each browser",
   "protocol": "The protocol, choice of [http, https], defaults to http",
   "keyPath": "The file path to ssl key",
-  "certPath": "The file path to ssl cert"
+  "certPath": "The file path to ssl cert",
+  "noGa": "Disable Google Analytics when running any command"
 }

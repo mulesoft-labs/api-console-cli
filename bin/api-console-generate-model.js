@@ -14,7 +14,7 @@ program
   .option('-o, --output [value]', 'Output file. Default to "./api-model.json"')
   .option('-p, --pretty-print', 'Generated JSON will be formatted')
   .option('--verbose', 'Print verbose messages')
-  .option('--no-ga', 'Disallow Google Analytics when running this command')
+  .option('--no-ga', 'Disable Google Analytics when running this command')
   .action(function(apiFile, options) {
     console.log();
     if (!apiFile) {
