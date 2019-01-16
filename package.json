@@ -1,6 +1,6 @@
 {
   "name": "api-console-cli",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "A set of dev tools for API console",
   "main": "main.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "url": "git://github.com/mulesoft-labs/api-console-cli.git"
   },
   "dependencies": {
-    "@api-components/api-console-builder": "1.0.9",
+    "@api-components/api-console-builder": "1.0.10",
     "amf-client-js": "3.0.2",
     "colors": "^1.3.3",
     "commander": "2.19.0",
