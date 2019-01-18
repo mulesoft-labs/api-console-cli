@@ -13,20 +13,9 @@ if (!semver.satisfies(process.version, '>=6.4')) {
   process.exit(1);
 }
 
-const fs = require('fs-extra');
-const path = require('path');
+const isCi = require('../lib/is-ci');
 const {GaHelper} = require('../lib/ga-helper');
 class ApiConsoleCli {
-  /**
-   * Tests if current environment is CI environment.
-   * @return {Boolean}
-   */
-  get isCi() {
-    const env = process.env;
-    const exists = fs.pathExistsSync(path.join('/', '.dockerenv'));
-    return !!(exists || env.CI || env.CONTINUOUS_INTEGRATION ||
-      env.BUILD_NUMBER || env.RUN_ID || exports.name || false);
-  }
   /**
    * Tests if Google Analytics should not be allowed when running the command.
    * This includes GA question.
@@ -53,7 +42,7 @@ class ApiConsoleCli {
    * @return {Promise}
    */
   init() {
-    if (this.noGa || this.isCi) {
+    if (this.noGa || isCi) {
       return this.runCommand();
     }
     return this._initGa();
@@ -65,19 +54,19 @@ class ApiConsoleCli {
    */
   _initGa() {
     this.helper = new GaHelper();
-    return this.helper.gaAllowed()
-    .then((allowed) => this._processGaAllowed(allowed));
+    return this.helper.init()
+    .then((gaFirstInit) => this._processGaAllowed(gaFirstInit));
   }
   /**
    * Runs instructions after reading the configuration.
-   * @param {?Boolean} allowed Optional, state of GA enabled flag.
+   * @param {?Boolean} gaFirstInit
    * @return {Promise}
    */
-  _processGaAllowed(allowed) {
-    if (typeof allowed === 'boolean') {
-      return this.runCommand();
+  _processGaAllowed(gaFirstInit) {
+    if (gaFirstInit) {
+      return this._askUser();
     }
-    return this._askUser();
+    return this.runCommand();
   }
   /**
    * Asks the user to enable GA, saves the answer, and runs the command.
