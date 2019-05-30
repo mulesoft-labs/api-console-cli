@@ -180,7 +180,7 @@ describe('api-console-cli', () => {
           args.push('-m');
           args.push(API_MEDIA_TYPE);
           args.push('-n');
-          args.push('5.0.0-preview-1');
+          args.push('5.0.2');
           args.push('--output');
           args.push(OUTPUT_DIR);
           args.push('--verbose');
