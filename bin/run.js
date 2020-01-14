@@ -5,7 +5,7 @@ const updateNotifier = require('update-notifier');
 const packageJson = require('../package.json');
 
 // See https://github.com/yeoman/update-notifier#how for how this works.
-updateNotifier({pkg: packageJson}).notify();
+updateNotifier({ pkg: packageJson }).notify();
 
 program
   .version(packageJson.version)

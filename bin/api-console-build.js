@@ -41,35 +41,44 @@ program
   .option('--verbose', 'Print verbose messages.')
   .option('--no-ga', docs.noGa)
   .on('--help', function() {
-    console.log('\n\n  Examples:');
-    console.log();
-    console.log('    $ api-console build -a ./api.raml -t "RAML 1.0"');
-    console.log('    $ api-console build -a http://domain.com/api.raml -t "RAML 1.0"');
-    console.log('    $ api-console build -a ./api.raml -t "RAML 1.0" -o "../api-docs"');
-    console.log('    $ api-console build -a ./api.raml -t "RAML 1.0" -attr proxy:https://proxy.com');
-    console.log();
+    const msgs = [];
+    msgs.push('\n\n  Examples:');
+    msgs.push();
+    msgs.push('    $ api-console build -a ./api.raml -t "RAML 1.0"');
+    msgs.push('    $ api-console build -a http://domain.com/api.raml -t "RAML 1.0"');
+    msgs.push('    $ api-console build -a ./api.raml -t "RAML 1.0" -o "../api-docs"');
+    msgs.push('    $ api-console build -a ./api.raml -t "RAML 1.0" -attr proxy:https://proxy.com');
+    msgs.push();
+    /* eslint-disable-next-line no-console */
+    console.log(msgs.join('\n'));
   })
   .parse(process.argv);
 
 try {
-  const {ApiBuild} = require('../lib/build');
+  const { ApiBuild } = require('../lib/build');
   const script = new ApiBuild(program);
   script.run()
   .catch((cause) => {
-    console.log(colors.red('  ' + cause.message));
-    console.log();
+    const msgs = [];
+    msgs.push(colors.red('  ' + cause.message));
+    msgs.push();
     if (program.verbose) {
-      console.log(cause.stack);
-      console.log();
+      msgs.push(cause.stack);
+      msgs.push();
     }
+    /* eslint-disable-next-line no-console */
+    console.log(msgs.join('\n'));
     process.exit(1);
   });
 } catch (e) {
-  console.log(colors.red('  ' + e.message));
-  console.log();
+  const msgs = [];
+  msgs.push(colors.red('  ' + e.message));
+  msgs.push();
   if (program.verbose) {
-    console.log(e.stack);
-    console.log();
+    msgs.push(e.stack);
+    msgs.push();
   }
+  /* eslint-disable-next-line no-console */
+  console.log(msgs.join('\n'));
   process.exit(1);
 }

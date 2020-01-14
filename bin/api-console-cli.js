@@ -5,6 +5,7 @@ const semver = require('semver');
 // Early exit if the user's node version is too low.
 if (!semver.satisfies(process.version, '>=6.4')) {
   const colors = require('colors/safe');
+  /* eslint-disable-next-line no-console */
   console.log(colors.red(
     '\n' +
     'API Console CLI requires at least Node v6.4.0. ' +
@@ -13,8 +14,10 @@ if (!semver.satisfies(process.version, '>=6.4')) {
   process.exit(1);
 }
 
+const inquirer = require('inquirer');
 const isCi = require('../lib/is-ci');
-const {GaHelper} = require('../lib/ga-helper');
+const { GaHelper } = require('../lib/ga-helper');
+
 class ApiConsoleCli {
   /**
    * Tests if Google Analytics should not be allowed when running the command.
@@ -52,21 +55,21 @@ class ApiConsoleCli {
    * Asks the user to allows GA when configuration is missing.
    * @return {Promise}
    */
-  _initGa() {
+  async _initGa() {
     this.helper = new GaHelper();
-    return this.helper.init()
-    .then((gaFirstInit) => this._processGaAllowed(gaFirstInit));
+    const gaFirstInit = await this.helper.init();
+    return await this._processGaAllowed(gaFirstInit);
   }
   /**
    * Runs instructions after reading the configuration.
    * @param {?Boolean} gaFirstInit
    * @return {Promise}
    */
-  _processGaAllowed(gaFirstInit) {
+  async _processGaAllowed(gaFirstInit) {
     if (gaFirstInit) {
-      return this._askUser();
+      return await this._askUser();
     }
-    return this.runCommand();
+    return await this.runCommand();
   }
   /**
    * Asks the user to enable GA, saves the answer, and runs the command.
@@ -74,21 +77,23 @@ class ApiConsoleCli {
    *
    * @return {Promise}
    */
-  _askUser() {
+  async _askUser() {
     this.queryTimeout = setTimeout(() => {
       this.queryTimeout = undefined;
       this.runCommand();
       return;
     }, 10000);
-    return this._getAnswer()
-    .then((answer) => this._processAnswer(answer))
-    .then(() => this.runCommand())
-    .catch(() => {});
+    try {
+      const answer = await this._getAnswer();
+      await this._processAnswer(answer);
+      return await this.runCommand();
+    } catch (e) {
+      // ...
+    }
   }
 
-  _getAnswer() {
-    const inquirer = require('inquirer');
-    return inquirer
+  async _getAnswer() {
+    return await inquirer
     .prompt([{
       type: 'confirm',
       name: 'gaEnabled',
