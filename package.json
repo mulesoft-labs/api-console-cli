@@ -26,19 +26,15 @@
     "url": "git://github.com/mulesoft-labs/api-console-cli.git"
   },
   "dependencies": {
-    "@api-components/api-console-builder": "2.0.0",
+    "@api-components/api-console-builder": "^2.0.1",
     "amf-client-js": "^4.0.3",
+    "ci-info": "^2.0.0",
     "colors": "^1.4.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.0",
-    "commander": "4.1.0",
     "esm": "^3.2.25",
     "fs-extra": "8.1.0",
-    "inquirer": "^7.0.3",
-    "semver": "^7.1.1",
-    "universal-analytics": "^0.4.20",
     "update-notifier": "^4.0.0",
-    "uuid": "^3.3.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {
