@@ -1,3 +1,24 @@
+<a name="2.0.0"></a>
+# 2.0.0 (2020-01-15)
+
+### refactor
+
+* adding support for API Console 6 and new build process ([9059590](https://github.com/mulesoft-labs/api-console-cli/commit/9059590))
+* removing Google Analytics
+* Dropping support for API Console 5
+
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/mulesoft-labs/api-console-cli/compare/v0.2.5...v1.0.0) (2017-11-10)
+
+### Fix
+
+* Fix: Updating tests to include latest build ([f7c9f05](https://github.com/mulesoft-labs/api-console-cli/commit/f7c9f05))
+* Fix: Upgrading dependencies to fix security vulnerabilities ([9fe7ce3](https://github.com/mulesoft-labs/api-console-cli/commit/9fe7ce3))
+
+* Bumping version ([b7460ab](https://github.com/mulesoft-labs/api-console-cli/commit/b7460ab))
+* Updating GA - adding own cid generator, changing GA helper API ([76681f3](https://github.com/mulesoft-labs/api-console-cli/commit/76681f3))
+
+
 <a name="0.2.5"></a>
 ## [0.2.5](https://github.com/mulesoft-labs/api-console-cli/compare/v0.2.4...v0.2.5) (2017-11-10)
 
