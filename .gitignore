@@ -2,7 +2,6 @@
 .vscode
 .imdone
 node_modules
-bower_components
 build
 output
 api-console-cli.log
