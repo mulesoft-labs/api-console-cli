@@ -1,59 +1,105 @@
-'use strict';
+import { assert } from 'chai';
+import path from 'path';
+import fs from 'fs-extra';
+import sinon from 'sinon';
+import { Serve } from '../lib/serve/Serve.js';
 
-const {ApiServe} = require('../lib/serve');
-const assert = require('chai').assert;
-
-describe('api-console-cli', () => {
-  describe('ApiServe', () => {
-    describe('_applyOpts()', () => {
-      const args = ['root', 'entrypoint', 'port', 'hostname',
-      'open', 'openPath'];
-      args.forEach((argument) => {
-        it(`Sets ${argument} from option argument`, function() {
-          const opts = {};
-          opts[argument] = 'test';
-          const serve = new ApiServe(opts);
-          assert.equal(serve.opts[argument], 'test');
-        });
+describe.only('JsonGenerator', function() {
+  describe('constructor()', () => {
+    [
+      ['root', 'test-root'],
+      ['entrypoint', 'test-entrypoint'],
+      ['hostname', 'test-hostname'],
+      ['port', 8080],
+      ['open', true],
+      ['headers', [{ name: 'a', value: 'b' }]],
+    ].forEach(([name, value]) => {
+      it(`sets ${name} property`, () => {
+        const opts = {};
+        opts[name] = value;
+        const instance = new Serve(opts);
+        assert.equal(instance[name], value);
       });
+    });
+  });
 
-      it('Sets root from args', function() {
-        const opts = {
-          args: ['test']
-        };
-        const serve = new ApiServe(opts);
-        assert.equal(serve.opts.root, 'test');
-      });
+  describe('setRootPath()', () => {
+    after(async () => await fs.remove('build'));
 
-      it('Option root takes precedense over root from args', function() {
-        const opts = {
-          root: 'test1',
-          args: ['test2']
-        };
-        const serve = new ApiServe(opts);
-        assert.equal(serve.opts.root, 'test1');
-      });
+    it('sets a default path', async () => {
+      const instance = new Serve();
+      await instance.setRootPath();
+      assert.equal(instance.root, path.resolve('.'));
+    });
 
-      it(`Sets browser from option argument`, function() {
-        const opts = {
-          browser: ['test']
-        };
-        const serve = new ApiServe(opts);
-        assert.deepEqual(serve.opts.browser, ['test']);
-      });
+    it('sets build/ when exists', async () => {
+      await fs.ensureDir('build');
+      const instance = new Serve();
+      await instance.setRootPath();
+      assert.equal(instance.root, path.resolve('build'));
+    });
 
-      it(`Sets protocol from option argument`, function() {
-        const opts = {
-          protocol: 'https'
-        };
-        const serve = new ApiServe(opts);
-        assert.deepEqual(serve.opts.protocol, 'https');
-      });
+    it('sets set path', async () => {
+      const root = 'test';
+      const instance = new Serve({ root });
+      await instance.setRootPath();
+      assert.equal(instance.root, path.resolve(root));
+    });
+  });
 
-      it(`Sets protocol to http by default`, function() {
-        const serve = new ApiServe({});
-        assert.deepEqual(serve.opts.protocol, 'http');
+  describe('setHeaders()', () => {
+    let serve;
+    beforeEach(() => {
+      serve = new Serve();
+    });
+
+    it('sets empty object when no headers are set', () => {
+      serve.setHeaders();
+      assert.deepEqual(serve.headers, {});
+    });
+
+    it('sets headers passed in options', () => {
+      serve.headers = [{ name: 'a', value: 'b' }, { name: 'c', value: 'd' }];
+      serve.setHeaders();
+      assert.deepEqual(serve.headers, {
+        a: 'b',
+        c: 'd',
       });
+    });
+
+    it('appends non-unique headers', () => {
+      serve.headers = [{ name: 'a', value: 'b' }, { name: 'a', value: 'c' }];
+      serve.setHeaders();
+      assert.deepEqual(serve.headers, {
+        a: 'b, c',
+      });
+    });
+  });
+
+  describe.only('stopServer()', () => {
+    let serve;
+    beforeEach(() => {
+      serve = new Serve();
+    });
+
+    it('does nothing when no server is created', () => {
+      serve.stopServer();
+    });
+
+    it('closes the server when created', () => {
+      // this just checks whether a function is called to not to create a server
+      const server = { close: function() {} };
+      const spy = sinon.spy(server, 'close');
+      serve.server = server;
+      serve.stopServer();
+      assert.isTrue(spy.called);
+    });
+
+    it('clears the server variable', () => {
+      const server = { close: function() {} };
+      serve.server = server;
+      serve.stopServer();
+      assert.isUndefined(serve.server);
     });
   });
 });
