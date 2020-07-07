@@ -1,10 +1,11 @@
 import { assert } from 'chai';
 import { Builder } from '../lib/builder/Builder.js';
 
-describe('Builder', function() {
+describe('Builder', () => {
   describe('constructor()', () => {
     it('sets opts', () => {
       const opts = { test: true };
+      // @ts-ignore
       const instance = new Builder(opts);
       assert.deepEqual(instance.opts, opts);
     });
@@ -33,6 +34,7 @@ describe('Builder', function() {
         const options = {};
         options[optName] = value;
         const result = build.translateOptions(options);
+        // @ts-ignore
         assert.equal(result[resName], value);
       });
     });

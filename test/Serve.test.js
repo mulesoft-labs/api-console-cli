@@ -2,9 +2,11 @@ import { assert } from 'chai';
 import path from 'path';
 import fs from 'fs-extra';
 import sinon from 'sinon';
-import { Serve } from '../lib/serve/Serve.js';
+import { Serve, headersValue } from '../lib/serve/Serve.js';
+/* eslint-disable no-empty-function */
+/* eslint-disable require-jsdoc */
 
-describe('Serve', function() {
+describe('Serve', () => {
   const workingDir = path.join('test', 'serve');
 
   describe('constructor()', () => {
@@ -20,13 +22,14 @@ describe('Serve', function() {
         const opts = {};
         opts[name] = value;
         const instance = new Serve(opts);
+        // @ts-ignore
         assert.equal(instance[name], value);
       });
     });
   });
 
   describe('setRootPath()', () => {
-    after(async () => await fs.remove('build'));
+    after(async () => fs.remove('build'));
 
     it('sets a default path', async () => {
       const instance = new Serve();
@@ -57,13 +60,13 @@ describe('Serve', function() {
 
     it('sets empty object when no headers are set', () => {
       serve.setHeaders();
-      assert.deepEqual(serve.headers, {});
+      assert.deepEqual(serve[headersValue], {});
     });
 
     it('sets headers passed in options', () => {
       serve.headers = [{ name: 'a', value: 'b' }, { name: 'c', value: 'd' }];
       serve.setHeaders();
-      assert.deepEqual(serve.headers, {
+      assert.deepEqual(serve[headersValue], {
         a: 'b',
         c: 'd',
       });
@@ -72,7 +75,7 @@ describe('Serve', function() {
     it('appends non-unique headers', () => {
       serve.headers = [{ name: 'a', value: 'b' }, { name: 'a', value: 'c' }];
       serve.setHeaders();
-      assert.deepEqual(serve.headers, {
+      assert.deepEqual(serve[headersValue], {
         a: 'b, c',
       });
     });
@@ -90,7 +93,9 @@ describe('Serve', function() {
 
     it('closes the server when created', () => {
       // this just checks whether a function is called to not to create a server
-      const server = { close: function() {} };
+      const server = { close: () => {
+        // ...
+      } };
       const spy = sinon.spy(server, 'close');
       serve.server = server;
       serve.stopServer();
@@ -98,7 +103,9 @@ describe('Serve', function() {
     });
 
     it('clears the server variable', () => {
-      const server = { close: function() {} };
+      const server = { close: () => {
+        // ...
+      } };
       serve.server = server;
       serve.stopServer();
       assert.isUndefined(serve.server);
@@ -109,17 +116,20 @@ describe('Serve', function() {
     let serve;
     let req;
     let res;
-    const f = () => {};
-    beforeEach(() => {
+    const f = () => {
+      // ...
+    };
+    beforeEach(async () => {
       serve = new Serve({
         root: path.resolve(workingDir),
-        entrypoint: 'index.html'
+        entrypoint: 'index.html',
       });
       req = { url: '' };
       res = { writeHead: f, end: f };
+      await serve.setDefaults();
     });
 
-    afterEach(async () => await fs.remove(workingDir));
+    afterEach(async () => fs.remove(workingDir));
 
     it('calls _send404() when url is not found', async () => {
       const spy = sinon.spy(serve, '_send404');
@@ -187,9 +197,11 @@ describe('Serve', function() {
     });
 
     it('adds headers to the response', async () => {
-      serve.headers = {
-        a: 'b'
-      };
+      serve.headers = [{
+        name: 'a',
+        value: 'b',
+      }];
+      await serve.setDefaults();
       const file = path.join(workingDir, 'index.html');
       await fs.ensureFile(file);
       await fs.writeFile(file, 'test', 'utf8');
@@ -197,7 +209,7 @@ describe('Serve', function() {
       req.url = '/';
       await serve._requestHandler(req, res);
       const headers = spy.args[0][1];
-      assert.equal(headers['a'], 'b');
+      assert.equal(headers.a, 'b');
     });
   });
 
@@ -206,7 +218,7 @@ describe('Serve', function() {
     beforeEach(async () => {
       serve = new Serve({
         root: path.resolve(workingDir),
-        entrypoint: 'index.html'
+        entrypoint: 'index.html',
       });
       await serve.setDefaults();
     });
