@@ -8,7 +8,7 @@ export declare interface CommandArgument {
    */
   alias?: string;
   /**
-   * The class that reprersents the type of the argument
+   * The class that represents the type of the argument
    */
   type?: object;
   /**

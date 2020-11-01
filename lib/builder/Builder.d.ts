@@ -167,7 +167,7 @@ export declare class Builder {
   translateOptions(opts?: BuilderOptions): ProjectConfiguration;
 
   /**
-   * Translates CLI attributes array into the struct accepted by the builder.
+   * Translates CLI attributes array into the structure accepted by the builder.
    * @param attr List of attributes.
    * @returns Generated list of attributes
    */

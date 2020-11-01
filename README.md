@@ -1,17 +1,17 @@
 # API console CLI
 
-The command-line tool for the MuleSoft's API Console.
+The command-line tool for the MuleSoft API Console.
 
 ## Features
 
--   __build__ - Build the API Console application optimized for production
--   __generate-json__ - (Re)generates the JSON file that is accepted as console's data model
--   __serve__ - Test generated bundle in local environment.
+- __build__ - Build the API Console application optimized for production
+- __generate-json__ - (Re)generates the JSON file that is accepted as console's data model
+- __serve__ - Test generated bundle in local environment.
 
 ## Installation
 
-```
-$ npm i -g api-console-cli
+```sh
+npm i -g api-console-cli
 ```
 
 In macOS and Linux you may need to use `sudo` prefix.
@@ -25,7 +25,7 @@ This CLI tool works with version 6 only.
 Please, use other versions of the CLI for previous versions of the console. Note, that previous versions of API Console are not longer supported. Please, see [API Console Docs](https://docs.api-console.io/) for latest release documentation.
 
 ```sh
-$ npm install -g api-console-cli@1.0.14
+npm install -g api-console-cli@1.0.14
 ```
 
 ## Command Overview
@@ -56,10 +56,10 @@ Runs a local web server serving a content of the current directory or selected p
 
 API Console consumes [AMF](https://github.com/aml-org/amf) data model generated from one of the following specifications:
 
--   RAML 1.0
--   RAML 0.8
--   OAS 2.0
--   OAS 3.0 - Experimental support. There might be some issues.
+- RAML 1.0
+- RAML 0.8
+- OAS 2.0
+- OAS 3.0 - Experimental support. There might be some issues.
 
 API support is not covered by nighter this CLI tool, building module, or API Console. This is provided by the AMF parser.
 
