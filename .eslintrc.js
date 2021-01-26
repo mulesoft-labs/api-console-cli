@@ -20,6 +20,9 @@ module.exports = {
     'babel',
     'import',
   ],
+  ignorePatterns: [
+    '**/*.d.ts',
+  ],
   rules: {
     'arrow-parens': [
       'error',
@@ -51,7 +54,7 @@ module.exports = {
       },
     ],
     'class-methods-use-this': [
-      // this is unescesary for node apps.
+      // this is unnecessary for node apps.
       'off',
       {
         'exceptMethods': [],
