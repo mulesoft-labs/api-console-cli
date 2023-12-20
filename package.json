@@ -30,7 +30,7 @@
   "homepage": "https://github.com/mulesoft-labs/api-console-cli#readme",
   "dependencies": {
     "@api-components/api-console-builder": "^3.0.0",
-    "amf-client-js": "^4.6.0",
+    "amf-client-js": "^5.0.0",
     "chalk": "^4.1.0",
     "ci-info": "^2.0.0",
     "colors": "^1.4.0",
